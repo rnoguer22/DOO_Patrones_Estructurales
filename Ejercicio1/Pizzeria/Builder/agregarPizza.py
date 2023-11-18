@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Any
-from Csv.csv import Csv
+from Pizzeria.Csv.csv import Csv
 
 
 class AgregarPizza():
@@ -11,7 +11,7 @@ class AgregarPizza():
         self.parts.append(part)
 
     def list_parts(self) -> None:
-        csv = Csv('./orden.csv')
+        csv = Csv('Ejercicio1/orden.csv')
         csv.guardar_en_csv(self.parts)
         print('Pedido realizado con exito!')
         print("Su pedido es:")

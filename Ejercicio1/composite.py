@@ -42,7 +42,6 @@ class Component(ABC):
         You can provide a method that lets the client code figure out whether a
         component can bear children.
         """
-
         return False
 
     @abstractmethod
@@ -52,11 +51,10 @@ class Component(ABC):
         concrete classes (by declaring the method containing the behavior as
         "abstract").
         """
-
         pass
 
 
-class Leaf(Component):
+class Pizza(Component):
     """
     The Leaf class represents the end objects of a composition. A leaf can't
     have any children.
@@ -102,7 +100,6 @@ class Composite(Component):
         their results. Since the composite's children pass these calls to their
         children and so forth, the whole object tree is traversed as a result.
         """
-
         results = []
         for child in self._children:
             results.append(child.operation())
@@ -113,7 +110,6 @@ def client_code(component: Component) -> None:
     """
     The client code works with all of the components via the base interface.
     """
-
     print(f"RESULT: {component.operation()}", end="")
 
 
@@ -123,7 +119,6 @@ def client_code2(component1: Component, component2: Component) -> None:
     base Component class, the client code can work with any component, simple or
     complex, without depending on their concrete classes.
     """
-
     if component1.is_composite():
         component1.add(component2)
 
@@ -132,7 +127,7 @@ def client_code2(component1: Component, component2: Component) -> None:
 
 if __name__ == "__main__":
     # This way the client code can support the simple leaf components...
-    simple = Leaf()
+    simple = Pizza()
     print("Client: I've got a simple component:")
     client_code(simple)
     print("\n")
@@ -141,11 +136,11 @@ if __name__ == "__main__":
     tree = Composite()
 
     branch1 = Composite()
-    branch1.add(Leaf())
-    branch1.add(Leaf())
+    branch1.add(Pizza())
+    branch1.add(Pizza())
 
     branch2 = Composite()
-    branch2.add(Leaf())
+    branch2.add(Pizza())
 
     tree.add(branch1)
     tree.add(branch2)

@@ -1,5 +1,5 @@
-from Builder.builder import Builder
-from Builder.agregarPizza import AgregarPizza
+from Pizzeria.Builder.builder import Builder
+from Pizzeria.Builder.agregarPizza import AgregarPizza
 
 class BuilderPizza(Builder):
     def __init__(self, orden) -> None:

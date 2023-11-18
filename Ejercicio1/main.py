@@ -1,4 +1,4 @@
-from lanzador import Lanzador
+from Pizzeria.lanzador import Lanzador
 
 
 if __name__ == '__main__':
