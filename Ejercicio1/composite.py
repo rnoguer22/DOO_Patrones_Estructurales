@@ -3,6 +3,15 @@ from abc import ABC, abstractmethod
 from typing import List
 
 
+import sys
+from PyQt5.QtWidgets import QApplication
+from time import sleep
+from Pizzeria.Gui.gui import PizzeriaApp
+from Pizzeria.Csv.csv import Csv
+from Pizzeria.Builder.director import Director
+from Pizzeria.Builder.builderPizza import BuilderPizza
+
+
 class Component(ABC):
     """
     The base Component class declares common operations for both simple and
@@ -42,6 +51,7 @@ class Component(ABC):
         You can provide a method that lets the client code figure out whether a
         component can bear children.
         """
+
         return False
 
     @abstractmethod
@@ -51,10 +61,11 @@ class Component(ABC):
         concrete classes (by declaring the method containing the behavior as
         "abstract").
         """
+
         pass
 
 
-class Pizza(Component):
+class Leaf(Component):
     """
     The Leaf class represents the end objects of a composition. A leaf can't
     have any children.
@@ -65,6 +76,30 @@ class Pizza(Component):
 
     def operation(self) -> str:
         return "Leaf"
+    
+
+class Pizza(Component):
+
+    def __init__(self) -> None:
+        app = QApplication(sys.argv)
+        ventana = PizzeriaApp()
+        ventana.show()
+        app.exec_()   
+        
+        print('Procesando su pedido...')
+        sleep(2)
+
+        director = Director()
+        builder = BuilderPizza(ventana.get_seleccion())
+        director.builder = builder
+
+        director.build_pizza()
+        builder.pizza.list_parts()
+
+    #Esta funcion sera llamada como crear_pizza (o no) en un futuro (primero me tengo que aclarar xd)
+    def operation(self) -> Pizza:
+        return self
+
 
 
 class Composite(Component):
@@ -100,16 +135,18 @@ class Composite(Component):
         their results. Since the composite's children pass these calls to their
         children and so forth, the whole object tree is traversed as a result.
         """
+
         results = []
         for child in self._children:
             results.append(child.operation())
-        return f"Branch({'+'.join(results)})"
+            print(child.operation())
 
 
 def client_code(component: Component) -> None:
     """
     The client code works with all of the components via the base interface.
     """
+
     print(f"RESULT: {component.operation()}", end="")
 
 
@@ -119,15 +156,20 @@ def client_code2(component1: Component, component2: Component) -> None:
     base Component class, the client code can work with any component, simple or
     complex, without depending on their concrete classes.
     """
+
     if component1.is_composite():
         component1.add(component2)
 
     print(f"RESULT: {component1.operation()}", end="")
 
 
+def client_code_pizza(component: Component) -> None:
+    return component.operation()
+
+
 if __name__ == "__main__":
     # This way the client code can support the simple leaf components...
-    simple = Pizza()
+    simple = Leaf()
     print("Client: I've got a simple component:")
     client_code(simple)
     print("\n")
@@ -136,11 +178,11 @@ if __name__ == "__main__":
     tree = Composite()
 
     branch1 = Composite()
-    branch1.add(Pizza())
-    branch1.add(Pizza())
+    branch1.add(Leaf())
+    branch1.add(Leaf())
 
     branch2 = Composite()
-    branch2.add(Pizza())
+    branch2.add(Leaf())
 
     tree.add(branch1)
     tree.add(branch2)
@@ -157,3 +199,12 @@ if __name__ == "__main__":
 
     print("Client: I don't need to check the components classes even when managing the tree:")
     client_code2(tree, simple)
+
+
+    pizza1 = Pizza()
+    pizza2 = Pizza()
+    menu = Composite()
+    menu.add(pizza1)
+    menu.add(pizza2)
+    print("Client: Now I've got a composite menu:")
+    client_code_pizza(menu)
