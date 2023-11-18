@@ -150,6 +150,7 @@ def client_code(component: Component) -> None:
     print(f"RESULT: {component.operation()}", end="")
 
 
+#Con esto mostraremos en un futuro el menu de la pizzeria, con diferentes components, algunos seran pizzas, otros bebidas, etc.
 def client_code2(component1: Component, component2: Component) -> None:
     """
     Thanks to the fact that the child-management operations are declared in the
