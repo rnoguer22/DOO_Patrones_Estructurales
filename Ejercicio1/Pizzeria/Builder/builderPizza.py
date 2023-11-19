@@ -26,52 +26,52 @@ class BuilderPizza(Builder):
         try:
             self._pizza.add(self.orden[1])
         except:
-            print('Ha habido un error al procesar su pedido')
+            pass
 
     def produce_queso(self) -> None:
         try:
             self._pizza.add(self.orden[2])
         except:
-            print('Ha habido un error al procesar su pedido')
+            pass
     
     def produce_ingrediente1(self) -> None:
         try:
             self._pizza.add(self.orden[3])    
         except:
-            print('Ha habido un error al procesar su pedido')
+            pass
         
     def produce_ingrediente2(self) -> None:
         try:
             self._pizza.add(self.orden[4])    
         except:
-            print('Ha habido un error al procesar su pedido')
+            pass
 
     def produce_ingrediente3(self) -> None:
         try:
             self._pizza.add(self.orden[5])
         except:
-            print('Ha habido un error al procesar su pedido')
+            pass
 
     def produce_coccion(self) -> None:
         try:
             self._pizza.add(self.orden[6])
         except:
-            print('Ha habido un error al procesar su pedido')
+            pass
 
     def produce_presentacion(self) -> None:
         try:
             self._pizza.add(self.orden[7]) 
         except:
-            print('Ha habido un error al procesar su pedido')
+            pass
 
     def produce_maridaje(self) -> None:
         try:
             self._pizza.add(self.orden[8])
         except:
-            print('Ha habido un error al procesar su pedido')
+            pass
 
     def produce_extras(self) -> None:
         try:
             self._pizza.add(self.orden[9])
         except:
-            print('Ha habido un error al procesar su pedido')
+            pass
