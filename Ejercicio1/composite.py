@@ -101,6 +101,23 @@ class Pizza(Component):
         return self
 
 
+class Bebida(Component):
+
+    def operation(self) -> str:
+        return self
+    
+
+class Postre(Component):
+
+    def operation(self) -> str:
+        return self
+
+
+class Entrada(Component):
+    
+    def operation(self) -> str:
+        return self
+    
 
 class Composite(Component):
     """
@@ -204,8 +221,14 @@ if __name__ == "__main__":
 
     pizza1 = Pizza()
     pizza2 = Pizza()
+    entrada = Entrada()
+    bebida = Bebida()
+    postre = Postre()
     menu = Composite()
     menu.add(pizza1)
     menu.add(pizza2)
+    menu.add(entrada)
+    menu.add(bebida)
+    menu.add(postre)
     print("Client: Now I've got a composite menu:")
     client_code_pizza(menu)
