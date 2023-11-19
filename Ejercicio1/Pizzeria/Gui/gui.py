@@ -119,17 +119,16 @@ class PizzeriaApp(QWidget):
 
     #Funcion para agregar los ingredientes (masa, salsa, ingrediente1, ...)
     def agregar_ingrediente(self, ingrediente):
+        self.seleccion.append(ingrediente)
         #Vamos a hacer un pequeño sistema de recomendaciones
         if ingrediente.startswith("Masa"):
-            self.seleccion.append(ingrediente)
             #Si seleccionamos una masa, mostramos una recomendacion de salsa
             recomendacion = QMessageBox.question(self, "Recomendación", "Con la Masa {}, te recomendamos la salsa {}, ¿Deseas agregarla?".format(ingrediente, self.recomendaciones[ingrediente]),
                                                  QMessageBox.Yes | QMessageBox.No)
+            #Si decimos que si, agregamos la salsa recomendada correspondiente
             if recomendacion == QMessageBox.Yes:
                 self.box_salsa.setCurrentText(self.recomendaciones[ingrediente])
-        else:
-            self.seleccion.append(ingrediente)
-                
+
 
     #Funcion para mostrar la orden
     def mostrar_orden(self):
