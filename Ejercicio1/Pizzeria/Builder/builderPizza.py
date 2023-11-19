@@ -17,31 +17,61 @@ class BuilderPizza(Builder):
         return pizza
 
     def produce_masa(self) -> None:
-        self._pizza.add(self.orden[0])
+        try:
+            self._pizza.add(self.orden[0])
+        except:
+            print('Ha habido un error al procesar su pedido')
 
     def produce_salsa(self) -> None:
-        self._pizza.add(self.orden[1])
+        try:
+            self._pizza.add(self.orden[1])
+        except:
+            print('Ha habido un error al procesar su pedido')
 
     def produce_queso(self) -> None:
-        self._pizza.add(self.orden[2])
+        try:
+            self._pizza.add(self.orden[2])
+        except:
+            print('Ha habido un error al procesar su pedido')
     
     def produce_ingrediente1(self) -> None:
-        self._pizza.add(self.orden[3])    
+        try:
+            self._pizza.add(self.orden[3])    
+        except:
+            print('Ha habido un error al procesar su pedido')
         
     def produce_ingrediente2(self) -> None:
-        self._pizza.add(self.orden[4])    
-    
+        try:
+            self._pizza.add(self.orden[4])    
+        except:
+            print('Ha habido un error al procesar su pedido')
+
     def produce_ingrediente3(self) -> None:
-        self._pizza.add(self.orden[5])
+        try:
+            self._pizza.add(self.orden[5])
+        except:
+            print('Ha habido un error al procesar su pedido')
 
     def produce_coccion(self) -> None:
-        self._pizza.add(self.orden[6])
+        try:
+            self._pizza.add(self.orden[6])
+        except:
+            print('Ha habido un error al procesar su pedido')
 
     def produce_presentacion(self) -> None:
-        self._pizza.add(self.orden[7]) 
+        try:
+            self._pizza.add(self.orden[7]) 
+        except:
+            print('Ha habido un error al procesar su pedido')
 
     def produce_maridaje(self) -> None:
-        self._pizza.add(self.orden[8])
+        try:
+            self._pizza.add(self.orden[8])
+        except:
+            print('Ha habido un error al procesar su pedido')
 
     def produce_extras(self) -> None:
-        self._pizza.add(self.orden[9])
+        try:
+            self._pizza.add(self.orden[9])
+        except:
+            print('Ha habido un error al procesar su pedido')
