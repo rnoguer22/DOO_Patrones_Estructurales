@@ -25,24 +25,24 @@ class MenuPizza(QWidget):
         layout_horizontal1.addWidget(label)
 
         # Lista desplegable para seleccionar el entrante
-        box_entrantes = QComboBox(self)
-        box_entrantes.addItems(self.entrantes_disponibles)
-        layout_horizontal2.addWidget(box_entrantes)        
+        self.box_entrantes = QComboBox(self)
+        self.box_entrantes.addItems(self.entrantes_disponibles)
+        layout_horizontal2.addWidget(self.box_entrantes)        
         
         # Lista desplegable para seleccinar la pizza
-        box_pizzas = QComboBox(self)
-        box_pizzas.addItems(self.pizzas_disponibles)
-        layout_horizontal2.addWidget(box_pizzas)
+        self.box_pizzas = QComboBox(self)
+        self.box_pizzas.addItems(self.pizzas_disponibles)
+        layout_horizontal2.addWidget(self.box_pizzas)
 
         # Lista desplegable para seleccinar la bebida
-        box_bebidas = QComboBox(self)
-        box_bebidas.addItems(self.bebidas_disponibles)
-        layout_horizontal2.addWidget(box_bebidas)
+        self.box_bebidas = QComboBox(self)
+        self.box_bebidas.addItems(self.bebidas_disponibles)
+        layout_horizontal2.addWidget(self.box_bebidas)
 
         # Lista desplegable para seleccinar los postres
-        box_postres = QComboBox(self)
-        box_postres.addItems(self.postres_disponibles)
-        layout_horizontal2.addWidget(box_postres)
+        self.box_postres = QComboBox(self)
+        self.box_postres.addItems(self.postres_disponibles)
+        layout_horizontal2.addWidget(self.box_postres)
 
         # Boton para confirmar la seleccion
         boton_confirmar = QPushButton("Confirmar")
@@ -70,27 +70,28 @@ class MenuPizza(QWidget):
         self.show()
     
 
-
     def confirmar_seleccion(self):
         self.seleccion = []
-        for i in range(self.layout().count()):
-            widget = self.layout().itemAt(i).widget()
-            if isinstance(widget, QComboBox):
-                self.seleccion.append(widget.currentText())
-        print(self.seleccion)
+        self.seleccion.append(f"Entrante: {self.box_entrantes.currentText()}")
+        self.seleccion.append(f"Pizza: {self.box_pizzas.currentText()}")
+        self.seleccion.append(f"Bebida: {self.box_bebidas.currentText()}")
+        self.seleccion.append(f"Postre: {self.box_postres.currentText()}")
         #Si la orden es correcta, la guardamos en una variable
         self.orden = ", ".join(self.seleccion)
         #Mostramos la orden en la interfaz
         self.text_area.append(f"Tu orden es: {self.orden}")
         #QMessageBox.about(self, "Confirmacion", "Su menu ha sido confirmado")
-        self.close()
     
     def cancelar_seleccion(self):
         self.seleccion = []
         QMessageBox.about(self, "Cancelacion", "Su menu ha sido cancelado")
         self.close()
 
+    def getSeleccion(self):
+        return self.seleccion
+
 app = QApplication(sys.argv)
 ventana = MenuPizza()
 ventana.show()
-app.exec_()  
+app.exec_() 
+print(ventana.getSeleccion())
