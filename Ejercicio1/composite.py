@@ -160,10 +160,9 @@ class Composite(Component):
             print(child.operation())
 
 
-class Menu(Component, QWidget):
+class Menu(Component):
 
     def __init__(self) -> None:
-        QWidget.__init__(self)  #LLamamos al constructor de QWidget, para poder agregar widgets a nuestra interfaz
         self._children: List[Component] = []
 
     def add(self, component: Component) -> None:
@@ -182,9 +181,6 @@ class Menu(Component, QWidget):
         for child in self._children:
             results.append(child.operation())
             print(child.operation())
-    
-    def interface(self):
-
 
 
 

@@ -6,7 +6,7 @@ from Pizzeria.Csv.csv import Csv
 from Pizzeria.Builder.director import Director
 from Pizzeria.Builder.builderPizza import BuilderPizza
 
-class Lanzador():
+class LanzadorPizzeria():
     def __init__(self) -> None:
         pass
 
@@ -20,7 +20,7 @@ class Lanzador():
         sleep(2)
 
         director = Director()
-        builder = BuilderPizza(ventana.get_seleccion())
+        builder = BuilderPizza(ventana.getSeleccion())
         director.builder = builder
 
         director.build_pizza()

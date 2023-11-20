@@ -1,7 +1,8 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout,QComboBox, QPushButton, QMessageBox, QTextEdit
+import time
 
-class MenuPizza(QWidget):
+class Interface_Menu(QWidget):
 
     def __init__(self):
         super().__init__()
@@ -61,6 +62,9 @@ class MenuPizza(QWidget):
         layout_horizontal3.addWidget(self.text_area)
 
 
+        #FALTA AÑADIR UN BOTON PARA ENVIAR EL MENU 
+
+
         layout_vertical.addLayout(layout_horizontal1)
         layout_vertical.addLayout(layout_horizontal2)
         layout_vertical.addLayout(layout_horizontal3)
@@ -79,19 +83,15 @@ class MenuPizza(QWidget):
         #Si la orden es correcta, la guardamos en una variable
         self.orden = ", ".join(self.seleccion)
         #Mostramos la orden en la interfaz
+        self.text_area.clear()
         self.text_area.append(f"Tu orden es: {self.orden}")
-        #QMessageBox.about(self, "Confirmacion", "Su menu ha sido confirmado")
+        QMessageBox.about(self, "Confirmacion", "Su menu ha sido confirmado")
     
     def cancelar_seleccion(self):
         self.seleccion = []
         QMessageBox.about(self, "Cancelacion", "Su menu ha sido cancelado")
-        self.close()
+        self.text_area.clear()
+        self.text_area.append("Su menu ha sido cancelado")
 
     def getSeleccion(self):
         return self.seleccion
-
-app = QApplication(sys.argv)
-ventana = MenuPizza()
-ventana.show()
-app.exec_() 
-print(ventana.getSeleccion())

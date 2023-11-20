@@ -19,7 +19,7 @@ class PizzeriaApp(QWidget):
 
         self.init_gui()
 
-    def get_seleccion(self):
+    def getSeleccion(self):
         return self.seleccion
 
     def init_gui(self):
