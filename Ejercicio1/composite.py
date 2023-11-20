@@ -5,6 +5,7 @@ from typing import List
 
 import sys
 from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout,QComboBox, QPushButton, QMessageBox, QTextEdit
 from time import sleep
 from Pizzeria.Gui.gui import PizzeriaApp
 from Pizzeria.Csv.csv import Csv
@@ -159,6 +160,34 @@ class Composite(Component):
             print(child.operation())
 
 
+class Menu(Component, QWidget):
+
+    def __init__(self) -> None:
+        QWidget.__init__(self)  #LLamamos al constructor de QWidget, para poder agregar widgets a nuestra interfaz
+        self._children: List[Component] = []
+
+    def add(self, component: Component) -> None:
+        self._children.append(component)
+        component.parent = self
+
+    def remove(self, component: Component) -> None:
+        self._children.remove(component)
+        component.parent = None
+
+    def is_composite(self) -> bool:
+        return True
+
+    def operation(self) -> str:
+        results = []
+        for child in self._children:
+            results.append(child.operation())
+            print(child.operation())
+    
+    def interface(self):
+
+
+
+
 def client_code(component: Component) -> None:
     """
     The client code works with all of the components via the base interface.
@@ -224,11 +253,11 @@ if __name__ == "__main__":
     entrada = Entrada()
     bebida = Bebida()
     postre = Postre()
-    menu = Composite()
+    menu = Menu()
     menu.add(pizza1)
     menu.add(pizza2)
     menu.add(entrada)
     menu.add(bebida)
     menu.add(postre)
-    print("Client: Now I've got a composite menu:")
+    print("Anda mira este es el menu:")
     client_code_pizza(menu)
