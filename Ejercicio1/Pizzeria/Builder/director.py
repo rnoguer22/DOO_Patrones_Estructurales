@@ -24,3 +24,7 @@ class Director:
         self._builder.produce_presentacion()
         self._builder.produce_maridaje()
         self._builder.produce_extras()
+    
+    def build_margarita(self):
+        self.orden = ['Masa Fina', 'Salsa Tomate', 'Queso Mozzarella', 'Tomate', 'Albahaca', 'Oregano', 'Horno', 'Caja de carton', 'Cerveza', 'Ninguno']
+        self.build_pizza()
