@@ -149,21 +149,3 @@ class Menu(Component):
         with open('Ejercicio1/pedidos_menu.csv', 'a', newline='') as archivo_csv:
             escritor_csv = csv.writer(archivo_csv)
             escritor_csv.writerow(escribir_csv)
-
-
-
-def client_code(component: Component) -> None:
-    print(f"RESULT: {component.operation()}", end="")
-
-
-#Con esto mostraremos en un futuro el menu de la pizzeria, con diferentes components, algunos seran pizzas, otros bebidas, etc.
-def client_code2(component1: Component, component2: Component) -> None:
-
-    if component1.is_composite():
-        component1.add(component2)
-
-    print(f"RESULT: {component1.operation()}", end="")
-
-
-def client_code_pizza(component: Component) -> None:
-    return component.operation()
