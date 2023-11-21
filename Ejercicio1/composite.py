@@ -14,10 +14,6 @@ from Pizzeria.Builder.builderPizza import BuilderPizza
 
 
 class Component(ABC):
-    """
-    The base Component class declares common operations for both simple and
-    complex objects of a composition.
-    """
 
     @property
     def parent(self) -> Component:
@@ -48,54 +44,36 @@ class Component(ABC):
         pass
 
     def is_composite(self) -> bool:
-        """
-        You can provide a method that lets the client code figure out whether a
-        component can bear children.
-        """
-
         return False
 
     @abstractmethod
     def operation(self) -> str:
-        """
-        The base Component may implement some default behavior or leave it to
-        concrete classes (by declaring the method containing the behavior as
-        "abstract").
-        """
-
         pass
-
-
-class Leaf(Component):
-    """
-    The Leaf class represents the end objects of a composition. A leaf can't
-    have any children.
-
-    Usually, it's the Leaf objects that do the actual work, whereas Composite
-    objects only delegate to their sub-components.
-    """
-
-    def operation(self) -> str:
-        return "Leaf"
     
 
 class Pizza(Component):
 
-    def __init__(self) -> None:
-        app = QApplication(sys.argv)
-        ventana = PizzeriaApp()
-        ventana.show()
-        app.exec_()   
-        
-        print('Procesando su pedido...')
-        sleep(2)
+    def __init__(self, pizza) -> None:
+        #Si la pizza es una pizza predeterminada del menu, retornamos el tipo de pizza
+        if pizza in ['Margarita', 'Barbacoa', '4 quesos', 'Carbonara', 'Vegetariana', 'Prosciuto', 'Ninguna']:
+            self.ingredientes = pizza
+        else:
+            #Si no, es una pizza personalizada, y retornamos los ingredientes
+            app = QApplication(sys.argv)
+            ventana = PizzeriaApp()
+            ventana.show()
+            app.exec_()   
+            
+            print('Procesando su pedido...')
+            sleep(2)
 
-        director = Director()
-        builder = BuilderPizza(ventana.get_seleccion())
-        director.builder = builder
+            director = Director()
+            builder = BuilderPizza(ventana.getSeleccion())
+            director.builder = builder
 
-        director.build_pizza()
-        builder.pizza.list_parts()
+            director.build_pizza()
+            builder.pizza.list_parts()
+
 
     #Esta funcion sera llamada como crear_pizza (o no) en un futuro (primero me tengo que aclarar xd)
     def operation(self) -> Pizza:
@@ -104,11 +82,17 @@ class Pizza(Component):
 
 class Bebida(Component):
 
+    def __init__(self, ingredientes) -> None:
+        self.ingredientes = ingredientes
+
     def operation(self) -> str:
         return self
     
 
 class Postre(Component):
+
+    def __init__(self, ingredientes) -> None:
+        self.ingredientes = ingredientes
 
     def operation(self) -> str:
         return self
@@ -116,49 +100,12 @@ class Postre(Component):
 
 class Entrada(Component):
     
+    def __init__(self, ingredientes) -> None:
+        self.ingredientes = ingredientes
+
     def operation(self) -> str:
         return self
     
-
-class Composite(Component):
-    """
-    The Composite class represents the complex components that may have
-    children. Usually, the Composite objects delegate the actual work to their
-    children and then "sum-up" the result.
-    """
-
-    def __init__(self) -> None:
-        self._children: List[Component] = []
-
-    """
-    A composite object can add or remove other components (both simple or
-    complex) to or from its child list.
-    """
-
-    def add(self, component: Component) -> None:
-        self._children.append(component)
-        component.parent = self
-
-    def remove(self, component: Component) -> None:
-        self._children.remove(component)
-        component.parent = None
-
-    def is_composite(self) -> bool:
-        return True
-
-    def operation(self) -> str:
-        """
-        The Composite executes its primary logic in a particular way. It
-        traverses recursively through all its children, collecting and summing
-        their results. Since the composite's children pass these calls to their
-        children and so forth, the whole object tree is traversed as a result.
-        """
-
-        results = []
-        for child in self._children:
-            results.append(child.operation())
-            print(child.operation())
-
 
 class Menu(Component):
 
@@ -177,28 +124,18 @@ class Menu(Component):
         return True
 
     def operation(self) -> str:
-        results = []
+        print('Su menu es:')
         for child in self._children:
-            results.append(child.operation())
-            print(child.operation())
+            print(child.ingredientes)
 
 
 
 def client_code(component: Component) -> None:
-    """
-    The client code works with all of the components via the base interface.
-    """
-
     print(f"RESULT: {component.operation()}", end="")
 
 
 #Con esto mostraremos en un futuro el menu de la pizzeria, con diferentes components, algunos seran pizzas, otros bebidas, etc.
 def client_code2(component1: Component, component2: Component) -> None:
-    """
-    Thanks to the fact that the child-management operations are declared in the
-    base Component class, the client code can work with any component, simple or
-    complex, without depending on their concrete classes.
-    """
 
     if component1.is_composite():
         component1.add(component2)
@@ -208,52 +145,3 @@ def client_code2(component1: Component, component2: Component) -> None:
 
 def client_code_pizza(component: Component) -> None:
     return component.operation()
-
-
-if __name__ == "__main__":
-    # This way the client code can support the simple leaf components...
-    simple = Leaf()
-    print("Client: I've got a simple component:")
-    client_code(simple)
-    print("\n")
-
-    # ...as well as the complex composites.
-    tree = Composite()
-
-    branch1 = Composite()
-    branch1.add(Leaf())
-    branch1.add(Leaf())
-
-    branch2 = Composite()
-    branch2.add(Leaf())
-
-    tree.add(branch1)
-    tree.add(branch2)
-
-    print("Client: Now I've got a composite tree:")
-    client_code(tree)
-    print("\n")
-
-    client_code(branch1)
-    print("\n")
-
-    client_code(branch2)
-    print("\n")
-
-    print("Client: I don't need to check the components classes even when managing the tree:")
-    client_code2(tree, simple)
-
-
-    pizza1 = Pizza()
-    pizza2 = Pizza()
-    entrada = Entrada()
-    bebida = Bebida()
-    postre = Postre()
-    menu = Menu()
-    menu.add(pizza1)
-    menu.add(pizza2)
-    menu.add(entrada)
-    menu.add(bebida)
-    menu.add(postre)
-    print("Anda mira este es el menu:")
-    client_code_pizza(menu)

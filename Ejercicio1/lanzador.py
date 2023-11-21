@@ -4,6 +4,7 @@ from interface import Interface_Menu
 from Pizzeria.lanzador import LanzadorPizzeria
 from Pizzeria.Builder.director import Director
 from Pizzeria.Builder.builderPizza import BuilderPizza  
+from composite import Pizza, Bebida, Postre, Entrada, Menu
 
 
 class Lanzador(QWidget):
@@ -46,6 +47,27 @@ class Lanzador(QWidget):
             director.build_pizza_menu()
             print(builder.pizza.parts)
 
+            lista_menu = []
+            for elemento in ventana.getSeleccion():
+                # Vamos a dividir cada elemento por los dos puntos y acceder al segundo elemento (índice 1)
+                # Luego eliminamos los espacios en blanco adicionales con strip()
+                contenido = elemento.split(':', 1)[1].strip()
+                lista_menu.append(contenido)
+            
+            #Creamos el menu con los elementos seleccionados
+            menu = Menu()
+            entrada = Entrada(lista_menu[0])
+            pizza = Pizza(lista_menu[1])
+            bebida = Bebida(lista_menu[2])
+            postre = Postre(lista_menu[3])
+            menu.add(entrada)
+            menu.add(pizza)
+            menu.add(bebida)
+            menu.add(postre)
+            #Mostramos el menu por pantalla
+            menu.operation()
+
+        #Si decimos que no, lanzamos la interfaz de la pizzeria
         else:
             lanzadorPizzeria = LanzadorPizzeria()
             lanzadorPizzeria.lanzar()
