@@ -125,14 +125,28 @@ class Menu(Component):
         return True
 
     def operation(self) -> str:
+        # Función para obtener el último ID del archivo CSV
+        def obtener_ultimo_id(archivo_csv):
+            try:
+                with open(archivo_csv, 'r', newline='') as archivo:
+                    lector_csv = csv.reader(archivo)
+                    lineas = list(lector_csv)
+                    return len(lineas)
+            except:
+                return 1  # Si el archivo no existe, el primer ID será 0
+
         escribir_csv = []
+
+        id = obtener_ultimo_id('Ejercicio1/pedidos_menu.csv')
+        escribir_csv.append(id)
+
         print('Su menu es:')
         for child in self._children:
             print(child.ingredientes)
             escribir_csv.append(child.ingredientes)
-        
+
         #Escribimos el menu en un csv
-        with open('Ejercicio1/pedidos_menu.csv', 'w', newline='') as archivo_csv:
+        with open('Ejercicio1/pedidos_menu.csv', 'a', newline='') as archivo_csv:
             escritor_csv = csv.writer(archivo_csv)
             escritor_csv.writerow(escribir_csv)
 
