@@ -25,6 +25,13 @@ class Director:
         self._builder.produce_maridaje()
         self._builder.produce_extras()
     
-    def build_margarita(self):
-        self.orden = ['Masa Fina', 'Salsa Tomate', 'Queso Mozzarella', 'Tomate', 'Albahaca', 'Oregano', 'Horno', 'Caja de carton', 'Cerveza', 'Ninguno']
-        self.build_pizza()
+    #Las pizzas de los menus no tendran maridaje ni extras
+    def build_pizza_menu(self) -> None:
+        self._builder.produce_masa()
+        self._builder.produce_salsa()
+        self._builder.produce_queso()
+        self._builder.produce_ingrediente1()
+        self._builder.produce_ingrediente2()
+        self._builder.produce_ingrediente3()
+        self._builder.produce_coccion()
+        self._builder.produce_presentacion()

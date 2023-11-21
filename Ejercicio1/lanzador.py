@@ -14,7 +14,13 @@ class Lanzador(QWidget):
             ventana = Interface_Menu()
             ventana.show()
             app.exec_() 
-            print(ventana.getSeleccion())
+            if ventana.getSeleccion()[1] == 'Pizza: Margarita':
+                director = Director()
+                builder = BuilderPizza(ventana.getSeleccion())
+                director.builder = builder
+
+                director.build_pizza()
+                builder.pizza.list_parts()
         else:
             lanzadorPizzeria = LanzadorPizzeria()
             lanzadorPizzeria.lanzar()
