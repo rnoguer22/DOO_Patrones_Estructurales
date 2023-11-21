@@ -23,7 +23,7 @@ class Lanzador(QWidget):
                 ingredientes = ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Tomate', 'Albahaca', 'Orégano', 'Horno', 'Caja de Cartón']
             elif ventana.getSeleccion()[1] == 'Pizza: Barbacoa':
                 ingredientes = ['Masa Fina', 'Salsa Barbacoa', 'Queso Mozarella', 'Carne Picada', 'Cebolla', 'Bacon', 'Horno', 'Caja de Cartón']
-            elif ventana.getSeleccion()[1] == 'Pizza: 4 Quesos':
+            elif ventana.getSeleccion()[1] == 'Pizza: 4 quesos':
                 ingredientes = ['Masa Gruesa', 'Salsa Tomate', 'Queso Mozarella', 'Queso Parmesano', 'Queso Cheddar', 'Queso Provolone', 'Horno', 'Caja de Cartón']
             elif ventana.getSeleccion()[1] == 'Pizza: Carbonara':
                 ingredientes = ['Masa Gruesa', 'Salsa Carbonara', 'Queso Mozarella', 'Bacon', 'Cebolla', 'Huevo', 'Horno', 'Caja de Cartón']
