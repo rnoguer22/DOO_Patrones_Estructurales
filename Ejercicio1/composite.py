@@ -4,6 +4,7 @@ from typing import List
 
 
 import sys
+import csv
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout,QComboBox, QPushButton, QMessageBox, QTextEdit
 from time import sleep
@@ -124,9 +125,16 @@ class Menu(Component):
         return True
 
     def operation(self) -> str:
+        escribir_csv = []
         print('Su menu es:')
         for child in self._children:
             print(child.ingredientes)
+            escribir_csv.append(child.ingredientes)
+        
+        #Escribimos el menu en un csv
+        with open('Ejercicio1/pedidos_menu.csv', 'w', newline='') as archivo_csv:
+            escritor_csv = csv.writer(archivo_csv)
+            escritor_csv.writerow(escribir_csv)
 
 
 
