@@ -17,14 +17,29 @@ class Lanzador(QWidget):
             ventana = Interface_Menu()
             ventana.show()
             app.exec_() 
-            if ventana.getSeleccion()[1] == 'Pizza: Margarita':
-                director = Director()
-                ingredientes = ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Tomate', 'Albahaca', 'Orégano', 'Horno', 'Caja de Cartón']
-                builder = BuilderPizza(ingredientes)
-                director.builder = builder
+            director = Director()
 
-                director.build_pizza()
-                builder.pizza.list_parts()
+            if ventana.getSeleccion()[1] == 'Pizza: Margarita':
+                ingredientes = ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Tomate', 'Albahaca', 'Orégano', 'Horno', 'Caja de Cartón']
+            elif ventana.getSeleccion()[1] == 'Pizza: Barbacoa':
+                ingredientes = ['Masa Fina', 'Salsa Barbacoa', 'Queso Mozarella', 'Carne Picada', 'Cebolla', 'Bacon', 'Horno', 'Caja de Cartón']
+            elif ventana.getSeleccion()[1] == 'Pizza: 4 Quesos':
+                ingredientes = ['Masa Gruesa', 'Salsa Tomate', 'Queso Mozarella', 'Queso Parmesano', 'Queso Cheddar', 'Queso Provolone', 'Horno', 'Caja de Cartón']
+            elif ventana.getSeleccion()[1] == 'Pizza: Carbonara':
+                ingredientes = ['Masa Gruesa', 'Salsa Carbonara', 'Queso Mozarella', 'Bacon', 'Cebolla', 'Huevo', 'Horno', 'Caja de Cartón']
+            elif ventana.getSeleccion()[1] == 'Pizza: Vegetariana':
+                ingredientes = ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Champiñones', 'Cebolla', 'Pimiento', 'Horno', 'Caja de Cartón']
+            elif ventana.getSeleccion()[1] == 'Pizza: Prosciuto':
+                ingredientes = ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Jamón', 'Orégano', 'Champiñones', 'Horno', 'Caja de Cartón']
+            elif ventana.getSeleccion()[1] == 'Pizza: Ninguna':
+                QMessageBox.warning(self, 'Delizioso', 'No ha seleccionado ninguna pizza')
+            else:
+                QMessageBox.warning(self, 'Delizioso', 'Ha habido un error con su menu, intentelo de nuevo')
+            
+            builder = BuilderPizza(ingredientes)
+            director.builder = builder
+            director.build_pizza_menu()
+            builder.pizza.list_parts()
         else:
             lanzadorPizzeria = LanzadorPizzeria()
             lanzadorPizzeria.lanzar()
