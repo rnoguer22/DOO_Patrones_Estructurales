@@ -12,13 +12,14 @@ class Lanzador(QWidget):
         app = QApplication(sys.argv)
         lanzador = QMessageBox.question(self, 'Delizioso', '¿Desea menu?',
                                  QMessageBox.Yes | QMessageBox.No)
-        #Si decimos que si, agregamos la salsa recomendada correspondiente
+        #Si decimos que si, lanzamos la interfaz del menu
         if lanzador == QMessageBox.Yes:   
             ventana = Interface_Menu()
             ventana.show()
             app.exec_() 
+            #LLamamos a la clase director para hacer un builder y asi construir la pizza
             director = Director()
-
+            #Creamos una lista con los ingredientes de cada pizza
             if ventana.getSeleccion()[1] == 'Pizza: Margarita':
                 ingredientes = ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Tomate', 'Albahaca', 'Orégano', 'Horno', 'Caja de Cartón']
             elif ventana.getSeleccion()[1] == 'Pizza: Barbacoa':
@@ -36,6 +37,7 @@ class Lanzador(QWidget):
             
             #Control de excepciones para manejar errores en la seleccion de ingredientes
             try:
+                #De esta manera construimos nuestra pizza elegida en el menu
                 builder = BuilderPizza(ingredientes)
             except:
                 QMessageBox.warning(self, 'Delizioso', 'Ha habido un error con su menu, intentelo de nuevo')
@@ -43,6 +45,7 @@ class Lanzador(QWidget):
             director.builder = builder
             director.build_pizza_menu()
             print(builder.pizza.parts)
+
         else:
             lanzadorPizzeria = LanzadorPizzeria()
             lanzadorPizzeria.lanzar()
