@@ -33,13 +33,16 @@ class Lanzador(QWidget):
                 ingredientes = ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Jamón', 'Orégano', 'Champiñones', 'Horno', 'Caja de Cartón']
             elif ventana.getSeleccion()[1] == 'Pizza: Ninguna':
                 QMessageBox.warning(self, 'Delizioso', 'No ha seleccionado ninguna pizza')
-            else:
-                QMessageBox.warning(self, 'Delizioso', 'Ha habido un error con su menu, intentelo de nuevo')
             
-            builder = BuilderPizza(ingredientes)
+            #Control de excepciones para manejar errores en la seleccion de ingredientes
+            try:
+                builder = BuilderPizza(ingredientes)
+            except:
+                QMessageBox.warning(self, 'Delizioso', 'Ha habido un error con su menu, intentelo de nuevo')
+
             director.builder = builder
             director.build_pizza_menu()
-            builder.pizza.list_parts()
+            print(builder.pizza.parts)
         else:
             lanzadorPizzeria = LanzadorPizzeria()
             lanzadorPizzeria.lanzar()
