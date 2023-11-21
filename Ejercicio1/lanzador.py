@@ -2,6 +2,9 @@ import sys
 from PyQt5.QtWidgets import QWidget, QMessageBox, QApplication
 from interface import Interface_Menu
 from Pizzeria.lanzador import LanzadorPizzeria
+from Pizzeria.Builder.director import Director
+from Pizzeria.Builder.builderPizza import BuilderPizza  
+
 
 class Lanzador(QWidget):
 
@@ -16,7 +19,8 @@ class Lanzador(QWidget):
             app.exec_() 
             if ventana.getSeleccion()[1] == 'Pizza: Margarita':
                 director = Director()
-                builder = BuilderPizza(ventana.getSeleccion())
+                ingredientes = ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Tomate', 'Albahaca', 'Orégano', 'Horno', 'Caja de Cartón']
+                builder = BuilderPizza(ingredientes)
                 director.builder = builder
 
                 director.build_pizza()
