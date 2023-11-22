@@ -6,6 +6,7 @@ from Pizzeria.Builder.director import Director
 from Pizzeria.Builder.builderPizza import BuilderPizza  
 from composite import Pizza, Bebida, Postre, Entrada, Menu
 from precio import Precio
+import random
 
 
 class Lanzador(QWidget):
@@ -68,8 +69,11 @@ class Lanzador(QWidget):
             #Mostramos el menu por pantalla
             print('Su menu es: ', ', '.join(lista_menu))
             menu.operation()
+        
 
         #Si decimos que no, lanzamos la interfaz de la pizzeria
         else:
             lanzadorPizzeria = LanzadorPizzeria()
             lanzadorPizzeria.lanzar()
+        
+        print('Duracion estimada del pedido: ', random.randint(1, 59), ' minutos')
