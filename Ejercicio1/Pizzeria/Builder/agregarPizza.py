@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import Any
 from Pizzeria.Csv.csv import Csv
+from precio import Precio
 
 
 class AgregarPizza():
@@ -14,5 +15,10 @@ class AgregarPizza():
         csv = Csv('Ejercicio1/orden.csv')
         csv.guardar_en_csv(self.parts)
         print('Pedido realizado con exito!')
-        print("Su pedido es:")
-        print(f"{', '.join(self.parts)}", end="")
+        print("Su pedido es: ", end="")
+        print(f"{', '.join(self.parts)}")
+
+        #Calculamos el precio del pedido
+        precio = Precio()
+        print('El precio de su pedido es: ', precio.calcular_precio(self.parts), '€')
+        

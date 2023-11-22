@@ -3,7 +3,7 @@ class Precio:
     def __init__(self):
         self.precios_ingredientes = {
             'Masa Fina': 1.50, 'Salsa Tomate': 0.75, 'Queso Mozarella': 2.00, 'Tomate': 0.50, 'Albahaca': 0.25,
-            'Orégano': 0.20, 'Horno': 1.00, 'Caja de Cartón': 0.10, 'Salsa Barbacoa': 0.80, 'Carne Picada': 2.50,
+            'Orégano': 0.20, 'Horno': 1.00, 'Caja de carton': 0.10, 'Salsa Barbacoa': 0.80, 'Carne Picada': 2.50,
             'Cebolla': 0.40, 'Bacon': 1.80, 'Masa Gruesa': 1.60, 'Queso Parmesano': 2.20, 'Queso Cheddar': 2.00,
             'Queso Provolone': 2.10, 'Salsa Carbonara': 0.90, 'Huevo': 0.60, 'Champiñones': 0.70, 'Pimiento': 0.45,
             'Jamón': 1.70, 'Masa Rellena': 2.00, 'Masa Calzone': 3.00, 'Masa Siciliana': 1.80,

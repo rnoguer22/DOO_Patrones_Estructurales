@@ -72,8 +72,9 @@ class Lanzador(QWidget):
         
 
         #Si decimos que no, lanzamos la interfaz de la pizzeria
-        else:
+        elif lanzador == QMessageBox.No:
             lanzadorPizzeria = LanzadorPizzeria()
             lanzadorPizzeria.lanzar()
+        
         
         print('Duracion estimada del pedido: ', random.randint(1, 59), ' minutos')
