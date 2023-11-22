@@ -15,12 +15,27 @@ class Precio:
             'Palitos de queso': 5.00, 'Alitas de pollo': 7.80, 'Tiramisu': 6.50, 'Helado': 4.00, 'Brownie': 5.50
         }
 
+        self.tipos_pizzas = {
+            "Margarita": ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Tomate', 'Albahaca', 'Orégano', 'Horno', 'Caja de Cartón'], 
+            "Barbacoa": ['Masa Fina', 'Salsa Barbacoa', 'Queso Mozarella', 'Carne Picada', 'Cebolla', 'Bacon', 'Horno', 'Caja de Cartón'], 
+            "4 quesos": ['Masa Gruesa', 'Salsa Tomate', 'Queso Mozarella', 'Queso Parmesano', 'Queso Cheddar', 'Queso Provolone', 'Horno', 'Caja de Cartón'], 
+            "Prosciuto": ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Jamón', 'Orégano', 'Champiñones', 'Horno', 'Caja de Cartón'], 
+            "Vegetariana": ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Champiñones', 'Cebolla', 'Pimiento', 'Horno', 'Caja de Cartón'], 
+            "Carbonara": ['Masa Gruesa', 'Salsa Carbonara', 'Queso Mozarella', 'Bacon', 'Cebolla', 'Huevo', 'Horno', 'Caja de Cartón'],
+            "Ninguna": []
+            }
+
     def calcular_precio(self, ingredientes):
         precio = 0
         for ingrediente in ingredientes:
-            precio += self.precios_ingredientes[ingrediente]
+            if ingrediente in self.tipos_pizzas:
+                for componente in self.tipos_pizzas[ingrediente]:
+                    ingredientes.append(componente)
+            else:
+                precio += self.precios_ingredientes[ingrediente]
         return precio
 
 precio = Precio()
 print(precio.calcular_precio(['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Tomate', 'Albahaca', 'Orégano', 'Horno', 'Caja de Cartón']))
 print(precio.calcular_precio(['Masa Gruesa', 'Salsa Tomate', 'Queso Mozarella', 'Carne Picada', 'Cebolla', 'Bacon', 'Horno', 'Caja de Cartón']))
+print(precio.calcular_precio(['Ensalada', 'Margarita', 'Cerveza', 'Tiramisu']))
