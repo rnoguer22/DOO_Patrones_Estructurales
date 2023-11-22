@@ -1,12 +1,13 @@
 import sys
 from PyQt5.QtWidgets import QWidget, QMessageBox, QApplication
-from interface import Interface_Menu
+from Composite.Interface.interface import Interface_Menu
 from Pizzeria.lanzador import LanzadorPizzeria
 from Pizzeria.Builder.director import Director
 from Pizzeria.Builder.builderPizza import BuilderPizza  
-from composite import Pizza, Bebida, Postre, Entrada, Menu
-from precio import Precio
+from Composite.composite import Pizza, Bebida, Postre, Entrada, Menu
+from Composite.Precio.precio import Precio
 import random
+import time
 
 
 class Lanzador(QWidget):
@@ -67,14 +68,14 @@ class Lanzador(QWidget):
             menu.add(bebida)
             menu.add(postre)
             #Mostramos el menu por pantalla
+            print('\nProcesando su menu...')
+            time.sleep(2)
             print('Su menu es: ', ', '.join(lista_menu))
             menu.operation()
-        
 
         #Si decimos que no, lanzamos la interfaz de la pizzeria
         elif lanzador == QMessageBox.No:
             lanzadorPizzeria = LanzadorPizzeria()
             lanzadorPizzeria.lanzar()
-        
         
         print('Duracion estimada del pedido: ', random.randint(1, 59), ' minutos')

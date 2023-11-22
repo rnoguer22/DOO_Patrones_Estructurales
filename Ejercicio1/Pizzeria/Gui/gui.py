@@ -15,7 +15,7 @@ class PizzeriaApp(QWidget):
         self.seleccion = []
         self.orden = ""
 
-        self.recomendaciones = {'Masa Fina':'Barbacoa', 'Masa Gruesa':'Pesto', 'Masa Rellena':'Tomate', 'Masa Calzone':'Picante', 'Masa Siciliana':'De ajo', 'Masa Integral':'De queso', 'Masa Sin gluten':'Sin salsa'}
+        self.recomendaciones = {'Masa Fina':'Barbacoa', 'Masa Gruesa':'Pesto', 'Masa Rellena':'Tomate', 'Masa Calzone':'Picante', 'Masa Siciliana':'De ajo', 'Masa Integral':'de queso', 'Masa Sin gluten':'Sin salsa'}
 
         self.init_gui()
 

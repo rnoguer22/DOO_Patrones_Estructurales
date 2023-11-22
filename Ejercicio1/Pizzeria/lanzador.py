@@ -2,7 +2,6 @@ import sys
 from PyQt5.QtWidgets import QApplication
 from time import sleep
 from Pizzeria.Gui.gui import PizzeriaApp
-from Pizzeria.Csv.csv import Csv
 from Pizzeria.Builder.director import Director
 from Pizzeria.Builder.builderPizza import BuilderPizza
 
@@ -15,8 +14,8 @@ class LanzadorPizzeria():
         ventana = PizzeriaApp()
         ventana.show()
         app.exec_()   
-            
-        print('Procesando su pedido...')
+        
+        print('\nProcesando su pedido...')
         sleep(2)
 
         director = Director()

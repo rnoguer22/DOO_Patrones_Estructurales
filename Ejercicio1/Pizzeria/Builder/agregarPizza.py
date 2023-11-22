@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Any
 from Pizzeria.Csv.csv import Csv
-from precio import Precio
+from Composite.Precio.precio import Precio
 
 
 class AgregarPizza():

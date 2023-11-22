@@ -6,13 +6,12 @@ from typing import List
 import sys
 import csv
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout,QComboBox, QPushButton, QMessageBox, QTextEdit
 from time import sleep
 from Pizzeria.Gui.gui import PizzeriaApp
 from Pizzeria.Csv.csv import Csv
 from Pizzeria.Builder.director import Director
 from Pizzeria.Builder.builderPizza import BuilderPizza
-from precio import Precio
+from Composite.Precio.precio import Precio
 
 
 class Component(ABC):
@@ -76,8 +75,6 @@ class Pizza(Component):
             director.build_pizza()
             builder.pizza.list_parts()
 
-
-    #Esta funcion sera llamada como crear_pizza (o no) en un futuro (primero me tengo que aclarar xd)
     def operation(self) -> Pizza:
         return self
 
@@ -134,19 +131,19 @@ class Menu(Component):
                     lineas = list(lector_csv)
                     return len(lineas)
             except:
-                return 1  # Si el archivo no existe, el primer ID será 0
+                return 1  # Si el archivo no existe, el primer ID será 1
 
-        escribir_csv = []
+        escribir_csv = [] #En esta lista guardaremos los componentes del menu
         for child in self._children:
             escribir_csv.append(child.ingredientes)
 
         precio = Precio()
-        prize = precio.calcular_precio(escribir_csv)
+        prize = precio.calcular_precio(escribir_csv) #Calculamos el precio del menu
         escribir_csv.append(prize)
         print('El precio de su menu es: ', prize, '€')
 
         id = obtener_ultimo_id('Ejercicio1/pedidos_menu.csv')
-        escribir_csv.insert(0, id)
+        escribir_csv.insert(0, id) #Insertamos el id del menu en la primera posicion de la lista
 
         #Escribimos el menu en un csv
         with open('Ejercicio1/pedidos_menu.csv', 'a', newline='') as archivo_csv:
