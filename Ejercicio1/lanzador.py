@@ -5,6 +5,7 @@ from Pizzeria.lanzador import LanzadorPizzeria
 from Pizzeria.Builder.director import Director
 from Pizzeria.Builder.builderPizza import BuilderPizza  
 from composite import Pizza, Bebida, Postre, Entrada, Menu
+from precio import Precio
 
 
 class Lanzador(QWidget):
@@ -20,19 +21,20 @@ class Lanzador(QWidget):
             app.exec_() 
             #LLamamos a la clase director para hacer un builder y asi construir la pizza
             director = Director()
+            precio = Precio()
             #Creamos una lista con los ingredientes de cada pizza
             if ventana.getSeleccion()[1] == 'Pizza: Margarita':
-                ingredientes = ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Tomate', 'Albahaca', 'Orégano', 'Horno', 'Caja de Cartón']
+                ingredientes = precio.tipos_pizzas['Margarita']
             elif ventana.getSeleccion()[1] == 'Pizza: Barbacoa':
-                ingredientes = ['Masa Fina', 'Salsa Barbacoa', 'Queso Mozarella', 'Carne Picada', 'Cebolla', 'Bacon', 'Horno', 'Caja de Cartón']
+                ingredientes = precio.tipos_pizzas['Barbacoa']
             elif ventana.getSeleccion()[1] == 'Pizza: 4 quesos':
-                ingredientes = ['Masa Gruesa', 'Salsa Tomate', 'Queso Mozarella', 'Queso Parmesano', 'Queso Cheddar', 'Queso Provolone', 'Horno', 'Caja de Cartón']
+                ingredientes = precio.tipos_pizzas['4 quesos']
             elif ventana.getSeleccion()[1] == 'Pizza: Carbonara':
-                ingredientes = ['Masa Gruesa', 'Salsa Carbonara', 'Queso Mozarella', 'Bacon', 'Cebolla', 'Huevo', 'Horno', 'Caja de Cartón']
+                ingredientes = precio.tipos_pizzas['Carbonara']
             elif ventana.getSeleccion()[1] == 'Pizza: Vegetariana':
-                ingredientes = ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Champiñones', 'Cebolla', 'Pimiento', 'Horno', 'Caja de Cartón']
+                ingredientes = precio.tipos_pizzas['Vegetariana']
             elif ventana.getSeleccion()[1] == 'Pizza: Prosciuto':
-                ingredientes = ['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Jamón', 'Orégano', 'Champiñones', 'Horno', 'Caja de Cartón']
+                ingredientes = precio.tipos_pizzas['Prosciuto']
             elif ventana.getSeleccion()[1] == 'Pizza: Ninguna':
                 QMessageBox.warning(self, 'Delizioso', 'No ha seleccionado ninguna pizza')
             
@@ -45,7 +47,6 @@ class Lanzador(QWidget):
 
             director.builder = builder
             director.build_pizza_menu()
-            print(builder.pizza.parts)
 
             lista_menu = []
             for elemento in ventana.getSeleccion():
@@ -65,6 +66,7 @@ class Lanzador(QWidget):
             menu.add(bebida)
             menu.add(postre)
             #Mostramos el menu por pantalla
+            print('Su menu es: ', ', '.join(lista_menu))
             menu.operation()
 
         #Si decimos que no, lanzamos la interfaz de la pizzeria

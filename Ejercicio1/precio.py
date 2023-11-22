@@ -30,12 +30,7 @@ class Precio:
         for ingrediente in ingredientes:
             if ingrediente in self.tipos_pizzas:
                 for componente in self.tipos_pizzas[ingrediente]:
-                    ingredientes.append(componente)
+                    precio += self.precios_ingredientes[componente]
             else:
                 precio += self.precios_ingredientes[ingrediente]
-        return precio
-
-precio = Precio()
-print(precio.calcular_precio(['Masa Fina', 'Salsa Tomate', 'Queso Mozarella', 'Tomate', 'Albahaca', 'Orégano', 'Horno', 'Caja de Cartón']))
-print(precio.calcular_precio(['Masa Gruesa', 'Salsa Tomate', 'Queso Mozarella', 'Carne Picada', 'Cebolla', 'Bacon', 'Horno', 'Caja de Cartón']))
-print(precio.calcular_precio(['Ensalada', 'Margarita', 'Cerveza', 'Tiramisu']))
+        return round(precio, 2)

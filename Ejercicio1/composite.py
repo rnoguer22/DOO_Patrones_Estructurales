@@ -12,6 +12,7 @@ from Pizzeria.Gui.gui import PizzeriaApp
 from Pizzeria.Csv.csv import Csv
 from Pizzeria.Builder.director import Director
 from Pizzeria.Builder.builderPizza import BuilderPizza
+from precio import Precio
 
 
 class Component(ABC):
@@ -136,14 +137,16 @@ class Menu(Component):
                 return 1  # Si el archivo no existe, el primer ID será 0
 
         escribir_csv = []
+        for child in self._children:
+            escribir_csv.append(child.ingredientes)
+
+        precio = Precio()
+        prize = precio.calcular_precio(escribir_csv)
+        escribir_csv.append(prize)
+        print('El precio de su menu es: ', prize, '€')
 
         id = obtener_ultimo_id('Ejercicio1/pedidos_menu.csv')
-        escribir_csv.append(id)
-
-        print('Su menu es:')
-        for child in self._children:
-            print(child.ingredientes)
-            escribir_csv.append(child.ingredientes)
+        escribir_csv.insert(0, id)
 
         #Escribimos el menu en un csv
         with open('Ejercicio1/pedidos_menu.csv', 'a', newline='') as archivo_csv:

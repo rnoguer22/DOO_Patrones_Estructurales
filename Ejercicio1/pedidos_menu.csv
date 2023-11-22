@@ -1,4 +1,21 @@
-id,entrada,pizza,bebida,postre
+id,entrada,pizza,bebida,postre,precio
 1,Ensalada,Margarita,Cerveza,Tiramisu
 2,Pan de ajo,4 quesos,Vino,Brownie
 3,Ensalada,Margarita,Cerveza,Tiramisu
+4,Ensalada,Margarita,Cerveza,Tiramisu,Masa Fina,Salsa Tomate,Queso Mozarella,Tomate,Albahaca,Or�gano,Horno,Caja de Cart�n,19.8
+5,Ensalada,Margarita,Cerveza,Tiramisu,Masa Fina,Salsa Tomate,Queso Mozarella,Tomate,Albahaca,Or�gano,Horno,Caja de Cart�n,19.8
+6,Ensalada,Margarita,Cerveza,Tiramisu,Masa Fina,Salsa Tomate,Queso Mozarella,Tomate,Albahaca,Or�gano,Horno,Caja de Cart�n,19.8
+7,Alitas de pollo,Prosciuto,Refresco,Brownie,Masa Fina,Salsa Tomate,Queso Mozarella,Jam�n,Or�gano,Champi�ones,Horno,Caja de Cart�n,22.25
+8,Ensalada,Margarita,Cerveza,Tiramisu,Masa Fina,Salsa Tomate,Queso Mozarella,Tomate,Albahaca,Or�gano,Horno,Caja de Cart�n,19.8
+9,Ensalada,Margarita,Cerveza,Tiramisu,Masa Fina,Salsa Tomate,Queso Mozarella,Tomate,Albahaca,Or�gano,Horno,Caja de Cart�n,19.8
+10,Ensalada,Margarita,Cerveza,Tiramisu,19.799999999999997
+11,Ensalada,Margarita,Cerveza,Tiramisu,19.8
+12,Ensalada,Margarita,Cerveza,Tiramisu,19.8
+13,Ensalada,Margarita,Cerveza,Tiramisu,19.8
+14,Ensalada,Margarita,Cerveza,Tiramisu,19.8
+15,Ensalada,Margarita,Cerveza,Tiramisu,19.8
+16,Ensalada,Margarita,Cerveza,Tiramisu,19.8
+17,Ensalada,Margarita,Cerveza,Tiramisu,19.8
+18,Ensalada,Margarita,Cerveza,Tiramisu,19.8
+19,Ensalada,Margarita,Cerveza,Tiramisu,19.8
+20,Ensalada,Margarita,Cerveza,Tiramisu,19.8
