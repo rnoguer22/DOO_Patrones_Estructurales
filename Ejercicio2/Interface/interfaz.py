@@ -1,5 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit
+from Datos.guardar import Guardar
 
 class Interface(QWidget):
 
@@ -64,7 +65,11 @@ class Interface(QWidget):
         self.show()
 
     def confirmar_registro(self):
-        print(self.nombre_usuario.text(), self.contrasena.text())
+        datos = [self.nombre_usuario.text(), self.contrasena.text()]
+        # Guardamos los datos en el archivo CSV
+        guardar = Guardar('Ejercicio2/Datos/usuarios.csv')
+        guardar.guardar(datos)
+        # Mostramos un mensaje de confirmación
         QMessageBox.information(self, "Registro", "Registro completado correctamente")
         self.close()
         
@@ -77,8 +82,3 @@ class Interface(QWidget):
 
     def iniciar_sesion(self):
         print('Con este metodo iniciaremos sesion')
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ventana = Interface()
-    app.exec_()

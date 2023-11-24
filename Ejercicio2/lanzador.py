@@ -1,6 +1,10 @@
+from PyQt5.QtWidgets import QApplication
+import sys
+
 from Proxy.subject import Subject
 from Proxy.realSubject import RealSubject
 from Proxy.proxy import Proxy
+from Interface.interfaz import Interface
 
 class Lanzador:
 
@@ -30,3 +34,7 @@ class Lanzador:
         print("Client: Executing the same client code with a proxy:")
         proxy = Proxy(real_subject)
         client_code(proxy)
+
+        app = QApplication(sys.argv)
+        ventana = Interface()
+        app.exec_()
