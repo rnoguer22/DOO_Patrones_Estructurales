@@ -1,27 +1,28 @@
 import sys
-from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox, QPushButton
+from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit
 
 class Interface(QWidget):
 
     def __init__(self):
         super().__init__()
 
-        dialogo = QMessageBox()
-        dialogo.setWindowTitle("Inicio")
-        dialogo.setText("¿Deseas registrarte o ya dispones de una cuenta?")
+        self.dialogo = QMessageBox()
+        self.dialogo.setWindowTitle("Inicio")
+        self.dialogo.setText("¿Deseas registrarte o ya dispones de una cuenta?")
 
         # Agregamos los botones para registrarse o hacer el inicio de sesion
         registro = QPushButton("Registrarse")
         inicio_sesion = QPushButton("Iniciar sesion")
-        dialogo.addButton(registro, QMessageBox.YesRole)
-        dialogo.addButton(inicio_sesion, QMessageBox.NoRole)
+        self.dialogo.addButton(registro, QMessageBox.YesRole)
+        self.dialogo.addButton(inicio_sesion, QMessageBox.NoRole)
         
-        dialogo.exec_()
+        self.dialogo.exec_()
 
         # Verificar qué botón fue presionado
-        if dialogo.clickedButton() == registro:
+        if self.dialogo.clickedButton() == registro:
+            self.dialogo.close()
             self.registrarse()
-        elif dialogo.clickedButton() == inicio_sesion:
+        elif self.dialogo.clickedButton() == inicio_sesion:
             self.iniciar_sesion()
 
 
@@ -29,6 +30,7 @@ class Interface(QWidget):
         layout_vertical = QVBoxLayout()
         layout_horizontal1 = QHBoxLayout()
         layout_horizontal2 = QHBoxLayout()
+        layout_horizontal3 = QHBoxLayout()
 
         label = QLabel("Introduce tu nombre de usuario: ")
         layout_horizontal1.addWidget(label)
@@ -45,24 +47,32 @@ class Interface(QWidget):
 
         # Botón para confirmar el registro
         boton_confirmar = QPushButton("Confirmar")
-        boton_confirmar.onClick.connect(confirmar_registro)
+        boton_confirmar.clicked.connect(self.confirmar_registro)
         layout_horizontal3.addWidget(boton_confirmar)
 
         # Botón para cancelar el registro
         boton_cancelar = QPushButton("Cancelar")
-        boton_cancelar.onClick.connect(cancelar_registro)
+        boton_cancelar.clicked.connect(self.cancelar_registro)
         layout_horizontal3.addWidget(boton_cancelar)
 
-        def confirmar_registro(self):
-            print(self.nombre_usuario.text(), self.contrasena.text())
-            QMessageBox.information(self, "Registro", "Registro completado correctamente")
-            self.close()
+        layout_vertical.addLayout(layout_horizontal1)
+        layout_vertical.addLayout(layout_horizontal2)
+        layout_vertical.addLayout(layout_horizontal3)
+
+        self.setLayout(layout_vertical)
+        self.setWindowTitle("Registro")
+        self.show()
+
+    def confirmar_registro(self):
+        print(self.nombre_usuario.text(), self.contrasena.text())
+        QMessageBox.information(self, "Registro", "Registro completado correctamente")
+        self.close()
         
-        def cancelar_registro(self):
-            self.nombre_usuario.setText("")
-            self.contrasena.setText("")
-            QMessageBox.information(self, "Registro", "Registro cancelado")
-            self.close()
+    def cancelar_registro(self):
+        self.nombre_usuario.setText("")
+        self.contrasena.setText("")
+        QMessageBox.information(self, "Registro", "Registro cancelado")
+        self.close()
 
 
     def iniciar_sesion(self):
