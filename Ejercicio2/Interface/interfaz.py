@@ -53,6 +53,16 @@ class Interface(QWidget):
         boton_cancelar.onClick.connect(cancelar_registro)
         layout_horizontal3.addWidget(boton_cancelar)
 
+        def confirmar_registro(self):
+            print(self.nombre_usuario.text(), self.contrasena.text())
+            QMessageBox.information(self, "Registro", "Registro completado correctamente")
+            self.close()
+        
+        def cancelar_registro(self):
+            self.nombre_usuario.setText("")
+            self.contrasena.setText("")
+            QMessageBox.information(self, "Registro", "Registro cancelado")
+            self.close()
 
 
     def iniciar_sesion(self):
