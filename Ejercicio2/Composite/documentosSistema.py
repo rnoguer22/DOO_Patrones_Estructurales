@@ -12,7 +12,7 @@ class DocumentosSistema(ABC):
         pass
 
     @abstractmethod
-    def getTamaño(self):
+    def getTamanio(self):
         pass
 
     @abstractmethod
