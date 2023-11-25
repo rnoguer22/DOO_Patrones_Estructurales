@@ -9,9 +9,12 @@ from Interface.interfaz import Interface
 class Lanzador:
 
     def lanzar(self):
+        #usuario = RealSubject()
+        #proxy = Proxy(usuario)
 
         app = QApplication(sys.argv)
         ventana = Interface()
-
-        print(ventana.getAcceso())
         app.exec_()
+        usuario = RealSubject(ventana.getUser(), ventana.getPassword(), ventana.getAcceso())
+        proxy = Proxy(usuario)
+        proxy.request()

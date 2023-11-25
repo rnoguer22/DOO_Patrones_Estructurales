@@ -17,7 +17,7 @@ class Proxy(Subject):
         the same method in a linked RealSubject object.
         """
 
-        if self.check_access(acceso=False):
+        if self.check_access(self._real_subject.acces):
             self._real_subject.request()
             self.log_access()
 

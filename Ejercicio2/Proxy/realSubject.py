@@ -8,9 +8,10 @@ class RealSubject(Subject):
     changes to the RealSubject's code.
     """
 
-    def __init__(self, user, password) -> None:
+    def __init__(self, user, password, acces) -> None:
         self.user = user
         self.password = password
+        self.acces = acces
 
     def request(self) -> None:
-        print("RealSubject: Handling request.")
+        print("RealSubject: Handling request.", self.user, self.password, self.acces)
