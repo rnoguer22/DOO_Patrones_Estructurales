@@ -1,6 +1,5 @@
-import sys
 import csv
-from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit
+from PyQt5.QtWidgets import QWidget, QMessageBox, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit
 from Datos.guardar import Guardar
 
 class Interface(QWidget):
@@ -26,6 +25,18 @@ class Interface(QWidget):
             self.registrarse()
         elif self.dialogo.clickedButton() == inicio_sesion:
             self.iniciar_sesion()
+
+
+    def registrarse(self):
+        self.ventana('Registrarse')
+        self.repetir_contrasena = QLineEdit()
+        self.repetir_contrasena.setPlaceholderText("Repetir contraseña")
+        self.repetir_contrasena.setEchoMode(QLineEdit.Password)
+        self.layout_horizontal2.addWidget(self.repetir_contrasena)
+
+
+    def iniciar_sesion(self):
+        self.ventana('Iniciar sesión')
 
 
     def ventana(self, titulo):
@@ -67,7 +78,7 @@ class Interface(QWidget):
         self.setLayout(layout_vertical)
         self.setWindowTitle(titulo)
         self.show()
-
+    
 
     def confirmar_registro(self):
         datos = [self.nombre_usuario.text(), self.contrasena.text()]
@@ -83,8 +94,9 @@ class Interface(QWidget):
             guardar.guardar(datos)
             # Mostramos un mensaje de confirmación
             QMessageBox.information(self, "Registro", "Registro completado correctamente")
+            return True
         elif self.titulo == 'Iniciar sesión':
-            self.verificar_credenciales(datos[0], datos[1])
+            print(self.verificar_credenciales(datos[0], datos[1]))
         self.close()
         
 
@@ -104,6 +116,7 @@ class Interface(QWidget):
                 lector_csv = csv.reader(archivo)
                 for linea in lector_csv:
                     if user == linea[1] and password == linea[2]:
+                        print(self.getUser(), self.getPassword())
                         QMessageBox.information(self, "Inicio de sesión", "Inicio de sesión exitoso")
                         return True
             QMessageBox.warning(self, "Inicio de sesión", "Credenciales inválidas, recuerde registrarse previamente antes de iniciar sesion")
@@ -111,20 +124,10 @@ class Interface(QWidget):
         except FileNotFoundError:
             QMessageBox.warning(self, "Inicio de sesión", "No se encontró el archivo de usuarios")
             return False
+    
+        
+    def getUser(self):
+        return self.nombre_usuario.text()
 
-
-    def registrarse(self):
-        self.ventana('Registrarse')
-        self.repetir_contrasena = QLineEdit()
-        self.repetir_contrasena.setPlaceholderText("Repetir contraseña")
-        self.repetir_contrasena.setEchoMode(QLineEdit.Password)
-        self.layout_horizontal2.addWidget(self.repetir_contrasena)
-
-
-    def iniciar_sesion(self):
-        self.ventana('Iniciar sesión')
-        user = self.nombre_usuario.text()
-        password = self.contrasena.text()
-        if user and password:
-            if self.verificar_credenciales(user, password):
-                self.close()
+    def getPassword(self):
+        return self.contrasena.text()
