@@ -17,13 +17,12 @@ class Proxy(Subject):
         the same method in a linked RealSubject object.
         """
 
-        if self.check_access():
+        if self.check_access(acceso=False):
             self._real_subject.request()
             self.log_access()
 
-    def check_access(self) -> bool:
-        print("Proxy: Checking access prior to firing a real request.")
-        return True
+    def check_access(self, acceso) -> bool:
+        return acceso
 
     def log_access(self) -> None:
         print("Proxy: Logging the time of request.", end="")

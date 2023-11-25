@@ -6,6 +6,7 @@ class Interface(QWidget):
 
     def __init__(self):
         super().__init__()
+        self.acceso = False
 
         self.dialogo = QMessageBox()
         self.dialogo.setWindowTitle("Inicio")
@@ -85,18 +86,21 @@ class Interface(QWidget):
         if self.titulo == 'Registrarse':
             if datos[0] == '' or datos[1] == '':
                 QMessageBox.warning(self, "Registro", "Por favor, introduce usuario y contraseña")
+                self.acceso = False
                 return False
             elif datos[1] != self.repetir_contrasena.text():
                 QMessageBox.warning(self, "Registro", "Las contraseñas no coinciden")
+                self.acceso = False
                 return False
             # Guardamos los datos en el archivo CSV
             guardar = Guardar('Ejercicio2/Datos/usuarios.csv')
             guardar.guardar(datos)
             # Mostramos un mensaje de confirmación
             QMessageBox.information(self, "Registro", "Registro completado correctamente")
+            self.acceso = True
             return True
         elif self.titulo == 'Iniciar sesión':
-            print(self.verificar_credenciales(datos[0], datos[1]))
+            self.verificar_credenciales(datos[0], datos[1])
         self.close()
         
 
@@ -110,24 +114,30 @@ class Interface(QWidget):
     def verificar_credenciales(self, user, password):
         if user == '' or password == '':
             QMessageBox.warning(self, "Inicio de sesión", "Por favor, introduce usuario y contraseña")
+            self.acceso = False
             return False
         try:
             with open('Ejercicio2/Datos/usuarios.csv', 'r', newline='') as archivo:
                 lector_csv = csv.reader(archivo)
                 for linea in lector_csv:
                     if user == linea[1] and password == linea[2]:
-                        print(self.getUser(), self.getPassword())
                         QMessageBox.information(self, "Inicio de sesión", "Inicio de sesión exitoso")
+                        self.acceso = True
                         return True
             QMessageBox.warning(self, "Inicio de sesión", "Credenciales inválidas, recuerde registrarse previamente antes de iniciar sesion")
+            self.acceso = False
             return False
         except FileNotFoundError:
             QMessageBox.warning(self, "Inicio de sesión", "No se encontró el archivo de usuarios")
+            self.acceso = False
             return False
-    
-        
+
+
     def getUser(self):
         return self.nombre_usuario.text()
 
     def getPassword(self):
         return self.contrasena.text()
+    
+    def getAcceso(self):
+        return self.acceso
