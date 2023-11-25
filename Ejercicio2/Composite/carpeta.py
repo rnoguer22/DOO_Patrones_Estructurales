@@ -1,6 +1,6 @@
-from documentosSistema import DocumentoSistema
+from Composite.documentosSistema import DocumentosSistema
 
-class Carpeta(DocumentoSistema):
+class Carpeta(DocumentosSistema):
     def __init__(self, nombre):
         self.nombre = nombre
         self.elementos = []
@@ -13,7 +13,7 @@ class Carpeta(DocumentoSistema):
 
     def getTamanio(self):
         # El tamaño de una carpeta es la suma de los tamaños de sus elementos
-        return sum(elem.obtener_tamanio() for elem in self.elementos)
+        return sum(elemento.getTamanio() for elemento in self.elementos)
 
     # Método para agregar un elemento a la carpeta
     def agregar_elemento(self, elemento):
@@ -22,4 +22,4 @@ class Carpeta(DocumentoSistema):
     def acceder(self, usuario):
         print(f"Acceso a la carpeta '{self.nombre}' por '{usuario}', contiene:")
         for elemento in self.elementos:
-            print(f"- {elemento.obtener_nombre()} ({elemento.obtener_tipo()})")
+            print(f"- {elemento.getNombre()} ({elemento.getTipo()})")

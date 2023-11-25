@@ -1,6 +1,6 @@
-from documentosSistema import DocumentoSistema
+from Composite.documentosSistema import DocumentosSistema
 
-class Enlace(DocumentoSistema):
+class Enlace(DocumentosSistema):
     def __init__(self, nombre, destino):
         self.nombre = nombre
         self.destino = destino

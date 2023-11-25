@@ -1,8 +1,8 @@
-from documentosSistema import DocumentoSistema
-import datetime
+from Composite.documentosSistema import DocumentosSistema
+from datetime import datetime
 
 
-class Documento(DocumentoSistema):
+class Documento(DocumentosSistema):
     def __init__(self, nombre, tipo, tamanio, contenido):
         self.nombre = nombre
         self.tipo = tipo
