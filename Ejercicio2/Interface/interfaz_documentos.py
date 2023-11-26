@@ -34,6 +34,7 @@ class Interface_Documents(QWidget):
         layout_horizontal1 = QHBoxLayout()
         layout_horizontal2 = QHBoxLayout()
         layout_horizontal3 = QHBoxLayout()
+        layout_horizontal4 = QHBoxLayout()
 
         #Agregamos los elementos a los layouts
         label_name = QLabel("Nombre del archivo: ")
@@ -58,14 +59,28 @@ class Interface_Documents(QWidget):
         layout_horizontal3.addWidget(label_content)
         layout_horizontal3.addWidget(content)
 
+        confirmar = QPushButton("Confirmar")
+        cancelar = QPushButton("Cancelar")
+        confirmar.clicked.connect(lambda: self.guardarArchivo(name.text(), tipos[tipo.currentText()], content.text()))
+        cancelar.clicked.connect(self.close)
+        layout_horizontal4.addWidget(confirmar)
+        layout_horizontal4.addWidget(cancelar)
+
         #Agregamos los layouts al layout vertical
         layout_vertical.addLayout(layout_horizontal1)
         layout_vertical.addLayout(layout_horizontal2)
         layout_vertical.addLayout(layout_horizontal3)
+        layout_vertical.addLayout(layout_horizontal4)
 
         self.setLayout(layout_vertical)
 
         self.show()
+
+    
+    def guardarArchivo(self, nombre, tipo, contenido):
+        #Creamos el archivo
+        print(nombre, tipo, contenido)
+        self.close()
 
 
 
