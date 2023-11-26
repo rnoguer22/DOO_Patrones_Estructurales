@@ -24,12 +24,12 @@ class Interface_Documents(QWidget):
         # Verificar qué botón fue presionado
         if self.dialogo.clickedButton() == crear_archivo:
             self.dialogo.close()
-            self.crearArchivo()
+            self.seleccionarArchivo()
         elif self.dialogo.clickedButton() == modificar_archivo:
             self.modificarArchivo()
     
 
-    def crearArchivo(self):
+    def seleccionarArchivo(self):
         self.crear_archivo = QMessageBox()
         self.crear_archivo.setWindowTitle("Crear archivo")
         self.crear_archivo.setText("¿Que tipo de archivo desea crear?")
@@ -47,57 +47,66 @@ class Interface_Documents(QWidget):
         # Verificar qué botón fue presionado
         if self.crear_archivo.clickedButton() == crear_carpeta:
             self.crear_archivo.close()
-            self.crearArchivo()
+            self.crearArchivo("carpeta")
         elif self.crear_archivo.clickedButton() == crear_documento:
             self.crear_archivo.close()
-            self.crearDocumento()
+            self.crearArchivo("documento")
         elif self.crear_archivo.clickedButton() == crear_link:
             self.crear_archivo.close()
-            self.crearArchivo()
+            self.crearArchivo("enlace")
 
 
-    def crearDocumento(self):
+    def crearArchivo(self, tipo_archivo):
         #Creamos los layouts
         layout_vertical = QVBoxLayout()
         layout_horizontal1 = QHBoxLayout()
-        layout_horizontal2 = QHBoxLayout()
-        layout_horizontal3 = QHBoxLayout()
         layout_horizontal4 = QHBoxLayout()
 
         #Agregamos los elementos a los layouts
-        label_name = QLabel("Nombre del archivo: ")
+        label_name = QLabel(f"Nombre {tipo_archivo}: ")
         name = QLineEdit()
         name.setPlaceholderText("Nombre")
+        archivo_csv = "carpetas.csv"
+        if tipo_archivo == "enlace":
+            label_name = QLabel("Enlace: ")
+            name.setPlaceholderText("Enlace a otro archivo")
+            archivo_csv = "enlaces.csv"
         layout_horizontal1.addWidget(label_name)
         layout_horizontal1.addWidget(name)
 
-        label_type = QLabel("Tipo de archivo: ")
-        tipos = {"Texto":".txt",
-                 "Imagen":".png", 
-                 "Video":".mp4", 
-                 "Audio":".mp3"}
-        tipo = QComboBox()
-        tipo.addItems(tipos.keys())
-        layout_horizontal2.addWidget(label_type)
-        layout_horizontal2.addWidget(tipo)
+        layout_horizontal2 = QHBoxLayout()
+        layout_horizontal3 = QHBoxLayout()
 
-        label_content = QLabel("Contenido del archivo: ")
-        content = QLineEdit()
-        content.setPlaceholderText("Contenido")
-        layout_horizontal3.addWidget(label_content)
-        layout_horizontal3.addWidget(content)
+        if tipo_archivo == "documento":
+            archivo_csv = "documentos.csv"
+            label_type = QLabel("Tipo de archivo: ")
+            tipos = {"Texto":".txt",
+                    "Imagen":".png", 
+                    "Video":".mp4", 
+                    "Audio":".mp3"}
+            tipo = QComboBox()
+            tipo.addItems(tipos.keys())
+            layout_horizontal2.addWidget(label_type)
+            layout_horizontal2.addWidget(tipo)
+
+            label_content = QLabel("Contenido del archivo: ")
+            content = QLineEdit()
+            content.setPlaceholderText("Contenido")
+            layout_horizontal3.addWidget(label_content)
+            layout_horizontal3.addWidget(content)
+
+            layout_vertical.addLayout(layout_horizontal2)
+            layout_vertical.addLayout(layout_horizontal3)            
 
         confirmar = QPushButton("Confirmar")
         cancelar = QPushButton("Cancelar")
-        confirmar.clicked.connect(lambda: self.guardarArchivo([name.text(), tipos[tipo.currentText()], content.text()], 'txt_doc.csv'))
+        confirmar.clicked.connect(lambda: self.guardarArchivo([name.text(), tipos[tipo.currentText()], content.text()], archivo_csv) if tipo_archivo == "documento" else self.guardarArchivo([name.text()], archivo_csv))
         cancelar.clicked.connect(self.close)
         layout_horizontal4.addWidget(confirmar)
         layout_horizontal4.addWidget(cancelar)
 
-        #Agregamos los layouts al layout vertical
+        #Agregamos los demas layouts al layout vertical
         layout_vertical.addLayout(layout_horizontal1)
-        layout_vertical.addLayout(layout_horizontal2)
-        layout_vertical.addLayout(layout_horizontal3)
         layout_vertical.addLayout(layout_horizontal4)
 
         self.setLayout(layout_vertical)
