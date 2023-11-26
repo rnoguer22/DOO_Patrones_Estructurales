@@ -122,8 +122,11 @@ class Interface(QWidget):
                 for linea in lector_csv:
                     if user == linea[1] and password == linea[2]:
                         QMessageBox.information(self, "Inicio de sesión", "Inicio de sesión exitoso")
-                        self.acceso = True
-                        return True
+                        #Los usuarios con id par son los que tienen acceso a los documentos, para modificarlos, eliminarlos, etc.
+                        if int(linea[0]) % 2 != 0:
+                            print(int(linea[0]))
+                            self.acceso = True
+                        return self.acceso
             QMessageBox.warning(self, "Inicio de sesión", "Credenciales inválidas, recuerde registrarse previamente antes de iniciar sesion")
             self.acceso = False
             return False

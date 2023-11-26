@@ -1,4 +1,5 @@
 from Composite.documentosSistema import DocumentosSistema
+from Proxy.realSubject import RealSubject
 
 class Carpeta(DocumentosSistema):
     def __init__(self, nombre):
@@ -19,7 +20,7 @@ class Carpeta(DocumentosSistema):
     def agregar_elemento(self, elemento):
         self.elementos.append(elemento)
 
-    def acceder(self, usuario):
-        print(f"Acceso a la carpeta '{self.nombre}' por '{usuario}', contiene:")
+    def acceder(self, usuario: RealSubject) -> None:
+        print(f"Acceso a la carpeta '{self.nombre}' por '{usuario.getUser()}', contiene:")
         for elemento in self.elementos:
             print(f"- {elemento.getNombre()} ({elemento.getTipo()})")

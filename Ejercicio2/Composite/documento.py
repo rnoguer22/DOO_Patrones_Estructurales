@@ -1,12 +1,13 @@
 from Composite.documentosSistema import DocumentosSistema
+from Proxy.realSubject import RealSubject
 from datetime import datetime
 
 
 class Documento(DocumentosSistema):
-    def __init__(self, nombre, tipo, tamanio, contenido):
+    def __init__(self, nombre, tipo, contenido):
         self.nombre = nombre
         self.tipo = tipo
-        self.tamanio = tamanio
+        self.tamanio = len(contenido) #El tamaño va a depender del contenido, como es logico
         self.contenido = contenido
 
     def getNombre(self):
@@ -18,6 +19,6 @@ class Documento(DocumentosSistema):
     def getTamanio(self):
         return self.tamanio
 
-    def acceder(self, usuario):
+    def acceder(self, usuario: RealSubject):
         self.ultimo_acceso = datetime.now()
-        print(f"Acceso al documento '{self.nombre}' por '{usuario}' a las {self.ultimo_acceso}")
+        print(f"Acceso al documento '{self.nombre}' por '{usuario.getUser()}' a las {self.ultimo_acceso}")

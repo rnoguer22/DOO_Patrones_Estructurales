@@ -13,18 +13,16 @@ from Composite.carpeta import Carpeta
 class Lanzador:
 
     def lanzar(self):
-        '''
         app = QApplication(sys.argv)
         ventana = Interface()
         app.exec_()
         usuario = RealSubject(ventana.getUser(), ventana.getPassword(), ventana.getAcceso())
         proxy = Proxy(usuario)
         proxy.request()
-        '''
 
         # Creamos los documentos
-        doc1 = Documento("documento1.txt", "Texto", 100, "Contenido del documento")
-        doc2 = Documento("Imagen.png", "Imagen", 500, "Contenido de la imagen")
+        doc1 = Documento("documento1.txt", "Texto", "Contenido del documento")
+        doc2 = Documento("Imagen.png", "Imagen", "Contenido de la imagen")
 
         # Creamos un enlace
         enlace = Enlace("Enlace a Carpeta", Carpeta("Carpeta de enlaces"))
@@ -36,11 +34,11 @@ class Lanzador:
         carpeta.agregar_elemento(enlace)
 
         # Accedemos a la carpeta
-        carpeta.acceder("Usuario1")
+        carpeta.acceder(usuario)
         print(f"Tamaño de la carpeta: {carpeta.getTamanio()} bytes")
 
         # Accedemos al documento
-        doc1.acceder("Usuario2")
+        doc1.acceder(usuario)
 
 
         #FALTA VINCULAR LOS USUARIOS DE LOS DOCUMENTOS Y CARPETAS CON LOS DEL PROXY

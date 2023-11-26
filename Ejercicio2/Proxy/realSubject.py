@@ -15,3 +15,6 @@ class RealSubject(Subject):
 
     def request(self) -> None:
         print("RealSubject: Handling request.", self.user, self.password, self.acces)
+
+    def getUser(self):
+        return self.user
