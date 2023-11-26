@@ -1,6 +1,7 @@
 import csv
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QComboBox
+from Datos.guardar import Guardar
 
 
 class Interface_Documents(QWidget):
@@ -78,8 +79,10 @@ class Interface_Documents(QWidget):
 
     
     def guardarArchivo(self, nombre, tipo, contenido):
-        #Creamos el archivo
-        print(nombre, tipo, contenido)
+        datos = [nombre, tipo, contenido]
+        # Guardamos los datos en el archivo CSV
+        guardar = Guardar('Ejercicio2/Datos/txt_doc.csv')
+        guardar.guardar(datos)
         self.close()
 
 
