@@ -30,6 +30,33 @@ class Interface_Documents(QWidget):
     
 
     def crearArchivo(self):
+        self.crear_archivo = QMessageBox()
+        self.crear_archivo.setWindowTitle("Crear archivo")
+        self.crear_archivo.setText("¿Que tipo de archivo desea crear?")
+
+        # Agregamos los botones para crear o modificar
+        crear_carpeta = QPushButton("Carpeta")
+        crear_documento = QPushButton("Documento")
+        crear_link = QPushButton("Enlace")
+        self.crear_archivo.addButton(crear_carpeta, QMessageBox.YesRole)
+        self.crear_archivo.addButton(crear_documento, QMessageBox.NoRole)
+        self.crear_archivo.addButton(crear_link, QMessageBox.NoRole)
+        
+        self.crear_archivo.exec_()
+
+        # Verificar qué botón fue presionado
+        if self.crear_archivo.clickedButton() == crear_carpeta:
+            self.crear_archivo.close()
+            self.crearArchivo()
+        elif self.crear_archivo.clickedButton() == crear_documento:
+            self.crear_archivo.close()
+            self.crearDocumento()
+        elif self.crear_archivo.clickedButton() == crear_link:
+            self.crear_archivo.close()
+            self.crearArchivo()
+
+
+    def crearDocumento(self):
         #Creamos los layouts
         layout_vertical = QVBoxLayout()
         layout_horizontal1 = QHBoxLayout()
@@ -62,7 +89,7 @@ class Interface_Documents(QWidget):
 
         confirmar = QPushButton("Confirmar")
         cancelar = QPushButton("Cancelar")
-        confirmar.clicked.connect(lambda: self.guardarArchivo(name.text(), tipos[tipo.currentText()], content.text()))
+        confirmar.clicked.connect(lambda: self.guardarArchivo([name.text(), tipos[tipo.currentText()], content.text()], 'txt_doc.csv'))
         cancelar.clicked.connect(self.close)
         layout_horizontal4.addWidget(confirmar)
         layout_horizontal4.addWidget(cancelar)
@@ -78,15 +105,9 @@ class Interface_Documents(QWidget):
         self.show()
 
     
-    def guardarArchivo(self, nombre, tipo, contenido):
-        datos = [nombre, tipo, contenido]
+    def guardarArchivo(self, datos, nombre_archivo):
         # Guardamos los datos en el archivo CSV
-        guardar = Guardar('Ejercicio2/Datos/txt_doc.csv')
+        guardar = Guardar('Ejercicio2/Datos/{}'.format(nombre_archivo))
         guardar.guardar(datos)
+        QMessageBox.information(self, "Archivo", "Archivo creado correctamente")
         self.close()
-
-
-
-app = QApplication(sys.argv)
-interfaz = Interface_Documents()
-app.exec_()

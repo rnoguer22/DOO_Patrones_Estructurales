@@ -1,2 +1,2 @@
-id,nombre,tipo,contenido
-1,proxy,.txt,esta guapo el proxy si
+id,nombre,tipo,contenido,carpeta
+1,fichero,.txt,contenido de fichero
