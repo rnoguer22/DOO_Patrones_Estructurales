@@ -18,6 +18,7 @@ class Proxy(Subject):
         """
 
         if self.check_access(self._real_subject.acces):
+            #Poner aqui el composite para crear las carpetas y documentos
             self._real_subject.request()
             self.log_access()
 
