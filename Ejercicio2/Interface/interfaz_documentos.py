@@ -57,6 +57,7 @@ class Interface_Documents(QWidget):
 
 
     def modificarArchivo(self, tipo_archivo):
+        self.tipo_archivo = tipo_archivo
         #Creamos los layouts
         layout_vertical = QVBoxLayout()
         layout_horizontal1 = QHBoxLayout()
@@ -64,24 +65,76 @@ class Interface_Documents(QWidget):
 
         #Agregamos los elementos a los layouts
         label_name = QLabel(f"{tipo_archivo} a modificar: ")
-        name = QComboBox(self)
+        self.name = QComboBox(self)
         layout_horizontal1.addWidget(label_name)
-        layout_horizontal1.addWidget(name)
+        layout_horizontal1.addWidget(self.name)
+
+        layout_horizontal2 = QHBoxLayout()
 
         if tipo_archivo == "documento":
-            archivo_csv = "documentos.csv"
+            self.archivo_csv = "documentos.csv"
+            rename = QLabel("Introzuca el nuevo contenido del documento: ")
+            self.rename_name = QLineEdit()
+            self.rename_name.setPlaceholderText("Nuevo contenido")
+            columna = "contenido"
         elif tipo_archivo == "carpeta":
-            archivo_csv = "carpetas.csv"
+            self.archivo_csv = "carpetas.csv"
+            rename = QLabel("Rename carpeta: ")
+            self.rename_name = QLineEdit()
+            self.rename_name.setPlaceholderText("Rename")
+            columna = "nombre"
         elif tipo_archivo == "enlace":
-            archivo_csv = "enlaces.csv"
+            self.archivo_csv = "enlaces.csv"
+            rename = QLabel("Nuevo enlace: ")
+            self.rename_name = QLineEdit()
+            self.rename_name.setPlaceholderText("Nuevo enlace")
+            columna = "nombre"
         
-        df = pd.read_csv('Ejercicio2/Datos/{}'.format(archivo_csv))
-        lista_nombres = df['nombre'].tolist()
-        name.addItems(lista_nombres)
+        layout_horizontal2.addWidget(rename)
+        layout_horizontal2.addWidget(self.rename_name)
 
+        self.df = pd.read_csv('Ejercicio2/Datos/{}'.format(self.archivo_csv))
+        lista_nombres = self.df['nombre'].tolist()
+        self.name.addItems(lista_nombres)
+
+        confirmar = QPushButton("Confirmar")
+        eliminar = QPushButton("Eliminar")
+        cancelar = QPushButton("Cancelar")
+        confirmar.clicked.connect(lambda: self.reemplazarArchivo(columna))
+        eliminar.clicked.connect(lambda: self.eliminarArchivo())
+        cancelar.clicked.connect(self.close)
+        layout_horizontal4.addWidget(confirmar)
+        layout_horizontal4.addWidget(eliminar)
+        layout_horizontal4.addWidget(cancelar)
+
+        #Agregamos los demas layouts al layout vertical
         layout_vertical.addLayout(layout_horizontal1)
+        layout_vertical.addLayout(layout_horizontal2)
+        layout_vertical.addLayout(layout_horizontal4)
+
         self.setLayout(layout_vertical)
         self.show()
+
+    
+    def reemplazarArchivo(self, column):
+        # Buscar la fila que contiene el valor a cambiar en la columna 
+        fila_indice = self.df.index[self.df[column] == self.name.currentText()].tolist()
+        # Verificar si se encontró el valor
+        if fila_indice:
+            # Si se encontró el valor, actualizarlo en la primera fila encontrada
+            self.df.loc[fila_indice[0], column] = self.rename_name.text()
+            self.df.to_csv('Ejercicio2/Datos/{}'.format(self.archivo_csv), index=False)
+            QMessageBox.information(self, self.tipo_archivo, f"{self.tipo_archivo} modificado correctamente")
+        else:
+            QMessageBox.warning(self, self.tipo_archivo, f"Ha habido un error con {self.tipo_archivo}, intentelo de nuevo")
+        self.close()
+
+
+    def eliminarArchivo(self):
+        self.df = self.df[self.df['nombre'] != self.name.currentText()]
+        self.df.to_csv('Ejercicio2/Datos/{}'.format(self.archivo_csv), index=False)
+        QMessageBox.information(self, self.tipo_archivo, f"{self.tipo_archivo} eliminado correctamente")
+        self.close()
     
 
     def seleccionarArchivo(self):
