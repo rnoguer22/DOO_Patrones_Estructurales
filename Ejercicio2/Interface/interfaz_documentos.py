@@ -1,5 +1,6 @@
 import csv
 import sys
+import pandas as pd
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QComboBox
 from Datos.guardar import Guardar
 
@@ -26,7 +27,61 @@ class Interface_Documents(QWidget):
             self.dialogo.close()
             self.seleccionarArchivo()
         elif self.dialogo.clickedButton() == modificar_archivo:
-            self.modificarArchivo()
+            self.seleccionarArchivoModificar()
+
+    def seleccionarArchivoModificar(self):
+        self.crear_archivo = QMessageBox()
+        self.crear_archivo.setWindowTitle("Modificar archivo")
+        self.crear_archivo.setText("¿Que archivo desea modificar?")
+
+        # Agregamos los botones para crear o modificar
+        crear_carpeta = QPushButton("Carpeta")
+        crear_documento = QPushButton("Documento")
+        crear_link = QPushButton("Enlace")
+        self.crear_archivo.addButton(crear_carpeta, QMessageBox.YesRole)
+        self.crear_archivo.addButton(crear_documento, QMessageBox.NoRole)
+        self.crear_archivo.addButton(crear_link, QMessageBox.NoRole)
+        
+        self.crear_archivo.exec_()
+
+        # Verificar qué botón fue presionado
+        if self.crear_archivo.clickedButton() == crear_carpeta:
+            self.crear_archivo.close()
+            self.modificarArchivo("carpeta")
+        elif self.crear_archivo.clickedButton() == crear_documento:
+            self.crear_archivo.close()
+            self.modificarArchivo("documento")
+        elif self.crear_archivo.clickedButton() == crear_link:
+            self.crear_archivo.close()
+            self.modificarArchivo("enlace")  
+
+
+    def modificarArchivo(self, tipo_archivo):
+        #Creamos los layouts
+        layout_vertical = QVBoxLayout()
+        layout_horizontal1 = QHBoxLayout()
+        layout_horizontal4 = QHBoxLayout()
+
+        #Agregamos los elementos a los layouts
+        label_name = QLabel(f"{tipo_archivo} a modificar: ")
+        name = QComboBox(self)
+        layout_horizontal1.addWidget(label_name)
+        layout_horizontal1.addWidget(name)
+
+        if tipo_archivo == "documento":
+            archivo_csv = "documentos.csv"
+        elif tipo_archivo == "carpeta":
+            archivo_csv = "carpetas.csv"
+        elif tipo_archivo == "enlace":
+            archivo_csv = "enlaces.csv"
+        
+        df = pd.read_csv('Ejercicio2/Datos/{}'.format(archivo_csv))
+        lista_nombres = df['nombre'].tolist()
+        name.addItems(lista_nombres)
+
+        layout_vertical.addLayout(layout_horizontal1)
+        self.setLayout(layout_vertical)
+        self.show()
     
 
     def seleccionarArchivo(self):
@@ -110,7 +165,6 @@ class Interface_Documents(QWidget):
         layout_vertical.addLayout(layout_horizontal4)
 
         self.setLayout(layout_vertical)
-
         self.show()
 
     
