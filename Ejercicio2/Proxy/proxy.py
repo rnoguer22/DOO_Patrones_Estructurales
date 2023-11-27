@@ -23,6 +23,7 @@ class Proxy(Subject):
             self.log_access()
 
     def check_access(self, acceso) -> bool:
+        print(acceso)
         return acceso
 
     def log_access(self) -> None:

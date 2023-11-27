@@ -126,6 +126,8 @@ class Interface(QWidget):
                         if int(linea[0]) % 2 != 0:
                             print(int(linea[0]))
                             self.acceso = True
+                        else:
+                            QMessageBox.warning(self, "Inicio de sesión", "Este usuario no tiene acceso a los documentos")
                         return self.acceso
             QMessageBox.warning(self, "Inicio de sesión", "Credenciales inválidas, recuerde registrarse previamente antes de iniciar sesion")
             self.acceso = False

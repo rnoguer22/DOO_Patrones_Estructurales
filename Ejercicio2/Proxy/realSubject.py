@@ -1,4 +1,8 @@
+from PyQt5.QtWidgets import QApplication
+import sys
 from Proxy.subject import Subject
+from Interface.interfaz_documentos import Interface_Documents
+
 
 class RealSubject(Subject):
     """
@@ -14,7 +18,9 @@ class RealSubject(Subject):
         self.acces = acces
 
     def request(self) -> None:
-        print("RealSubject: Handling request.", self.user, self.password, self.acces)
+        app = QApplication(sys.argv)
+        interfaz = Interface_Documents()
+        app.exec_()
 
     def getUser(self):
         return self.user

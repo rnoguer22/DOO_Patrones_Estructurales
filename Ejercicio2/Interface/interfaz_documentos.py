@@ -2,6 +2,7 @@ import csv
 import sys
 import pandas as pd
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QComboBox
+from PyQt5.QtCore import QCoreApplication
 from Datos.guardar import Guardar
 
 
@@ -27,7 +28,20 @@ class Interface_Documents(QWidget):
             self.dialogo.close()
             self.seleccionarArchivo()
         elif self.dialogo.clickedButton() == modificar_archivo:
-            self.seleccionarArchivoModificar()
+            self.selec
+            
+    #Funcion por si presionamos la cruz de salir de la ventana
+    def closeEvent(self, event):
+        # Sobrescribe el evento closeEvent para manejar la acción de cerrar la ventana
+        reply = QMessageBox.question(self, 'Salir', '¿Estás seguro de que quieres salir?',
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            # Si se confirma el cierre, cierra la ventana y finaliza la aplicación
+            event.accept()
+            QCoreApplication.instance().quit()
+        else:
+            # Si se cancela el cierre, ignora el evento de cierre
+            event.ignore()
 
 
     def seleccionarArchivoModificar(self):

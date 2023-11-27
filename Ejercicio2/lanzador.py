@@ -14,38 +14,12 @@ from Composite.carpeta import Carpeta
 class Lanzador:
 
     def lanzar(self):
-        '''
         app = QApplication(sys.argv)
         ventana = Interface()
         app.exec_()
         usuario = RealSubject(ventana.getUser(), ventana.getPassword(), ventana.getAcceso())
         proxy = Proxy(usuario)
         proxy.request()
-
-        # Creamos los documentos
-        doc1 = Documento("documento1.txt", "Texto", "Contenido del documento")
-        doc2 = Documento("Imagen.png", "Imagen", "Contenido de la imagen")
-
-        # Creamos un enlace
-        enlace = Enlace("Enlace a Carpeta", Carpeta("Carpeta de enlaces"))
-
-        # Creamos la carpeta y añadimos el enlace y los documentos
-        carpeta = Carpeta("Mi Carpeta")
-        carpeta.agregar_elemento(doc1)
-        carpeta.agregar_elemento(doc2)
-        carpeta.agregar_elemento(enlace)
-
-        # Accedemos a la carpeta
-        carpeta.acceder(usuario)
-        print(f"Tamaño de la carpeta: {carpeta.getTamanio()} bytes")
-
-        # Accedemos al documento
-        doc1.acceder(usuario)
-        '''
-
-        app = QApplication(sys.argv)
-        interfaz = Interface_Documents()
-        app.exec_()
 
 
         #METODOS PARA MODIFICAR EL CONTENIDO DE LOS DOCUMENTOS POR USUARIOS AUTORIZADOS (falta vincular esto ultimo con los usuarios autorzados)
