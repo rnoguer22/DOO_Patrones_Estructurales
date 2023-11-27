@@ -29,6 +29,7 @@ class Interface_Documents(QWidget):
         elif self.dialogo.clickedButton() == modificar_archivo:
             self.seleccionarArchivoModificar()
 
+
     def seleccionarArchivoModificar(self):
         self.crear_archivo = QMessageBox()
         self.crear_archivo.setWindowTitle("Modificar archivo")
@@ -116,6 +117,7 @@ class Interface_Documents(QWidget):
         self.show()
 
     
+    # Metodo para reemplazar el contenido de un archivo
     def reemplazarArchivo(self, column):
         # Buscar la fila que contiene el valor a cambiar en la columna 
         fila_indice = self.df.index[self.df[column] == self.name.currentText()].tolist()
@@ -130,6 +132,7 @@ class Interface_Documents(QWidget):
         self.close()
 
 
+    #Metodo para eliminar un archivo
     def eliminarArchivo(self):
         self.df = self.df[self.df['nombre'] != self.name.currentText()]
         self.df.to_csv('Ejercicio2/Datos/{}'.format(self.archivo_csv), index=False)
