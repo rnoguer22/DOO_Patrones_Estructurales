@@ -4,7 +4,8 @@ from Composite.Interface.interface import Interface_Menu
 from Pizzeria.lanzador import LanzadorPizzeria
 from Pizzeria.Builder.director import Director
 from Pizzeria.Builder.builderPizza import BuilderPizza  
-from Composite.composite import Pizza, Bebida, Postre, Entrada, Menu
+from Composite.componentes import Pizza, Bebida, Postre, Entrada
+from Composite.menu import Menu
 from Composite.Precio.precio import Precio
 import random
 import time
