@@ -4,12 +4,15 @@ import pandas as pd
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QComboBox
 from PyQt5.QtCore import QCoreApplication
 from Datos.guardar import Guardar
+from Composite.carpeta import Carpeta
+from Composite.documento import Documento
 
 
 class Interface_Documents(QWidget):
 
-    def __init__(self):
+    def __init__(self, usuario):
         super().__init__()
+        self.usuario = usuario #Añadimos el usuario que ha iniciado sesion para realizar el composite
 
         self.dialogo = QMessageBox()
         self.dialogo.setWindowTitle("Inicio")
@@ -78,20 +81,18 @@ class Interface_Documents(QWidget):
             rename = QLabel("Introzuca el nuevo contenido del documento: ")
             self.rename_name = QLineEdit()
             self.rename_name.setPlaceholderText("Nuevo contenido")
-            columna = "contenido"
         elif tipo_archivo == "carpeta":
             self.archivo_csv = "carpetas.csv"
             rename = QLabel("Rename carpeta: ")
             self.rename_name = QLineEdit()
             self.rename_name.setPlaceholderText("Rename")
-            columna = "nombre"
         elif tipo_archivo == "enlace":
             self.archivo_csv = "enlaces.csv"
             rename = QLabel("Nuevo enlace: ")
             self.rename_name = QLineEdit()
             self.rename_name.setPlaceholderText("Nuevo enlace")
-            columna = "nombre"
-        
+
+        columna = "nombre"        
         layout_horizontal2.addWidget(rename)
         layout_horizontal2.addWidget(self.rename_name)
 
@@ -118,7 +119,7 @@ class Interface_Documents(QWidget):
         self.show()
 
     
-    # Metodo para reemplazar el contenido de un archivo
+    # Metodo para reemplazar el nombre de un archivo
     def reemplazarArchivo(self, column):
         # Buscar la fila que contiene el valor a cambiar en la columna 
         fila_indice = self.df.index[self.df[column] == self.name.currentText()].tolist()
@@ -194,12 +195,10 @@ class Interface_Documents(QWidget):
             layout_horizontal2.addWidget(label_content)
             layout_horizontal2.addWidget(content)
 
-            
-
-
             confirmar = QPushButton("Confirmar")
             cancelar = QPushButton("Cancelar")
             confirmar.clicked.connect(lambda: self.guardarArchivo([name.text(), content.currentText()], archivo_csv))
+            confirmar.clicked.connect(lambda: self.crearComposite(name.text(), content.currentText()))
             cancelar.clicked.connect(self.close)
             layout_horizontal4.addWidget(confirmar)
             layout_horizontal4.addWidget(cancelar)
@@ -266,6 +265,20 @@ class Interface_Documents(QWidget):
         self.show()
 
     
+    #Funcion para implementar el composite y mostrarlo por pantalla
+    def crearComposite(self, carpeta, archivoCreado):
+        # Obtenemos la fila correspondiente al nombre seleccionado
+        fila_seleccionada = self.df[self.df['nombre'] == archivoCreado]
+        # Accedemos a los datos de la fila para crear el documento
+        tipo = fila_seleccionada['tipo'].values[0]  # Obtenemos el tipo de documento
+        contenido = fila_seleccionada['contenido'].values[0]  # Obtenemos el contenido
+
+        archivoCarpeta = Carpeta(carpeta)
+        documento_añadido = Documento(archivoCreado, tipo, contenido)
+        archivoCarpeta.agregar_elemento(documento_añadido)
+        archivoCarpeta.acceder(self.usuario)
+
+
     def guardarArchivo(self, datos, nombre_archivo):
         # Guardamos los datos en el archivo CSV
         guardar = Guardar('Ejercicio2/Datos/{}'.format(nombre_archivo))

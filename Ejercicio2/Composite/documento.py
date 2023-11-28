@@ -1,5 +1,4 @@
 from Composite.documentosSistema import DocumentosSistema
-from Proxy.realSubject import RealSubject
 from datetime import datetime
 
 
@@ -19,6 +18,6 @@ class Documento(DocumentosSistema):
     def getTamanio(self):
         return self.tamanio
 
-    def acceder(self, usuario: RealSubject):
+    def acceder(self, usuario):
         self.ultimo_acceso = datetime.now()
         print(f"Acceso al documento '{self.nombre}' por '{usuario.getUser()}' a las {self.ultimo_acceso}")

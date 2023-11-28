@@ -87,18 +87,18 @@ class Interface(QWidget):
             if datos[0] == '' or datos[1] == '':
                 QMessageBox.warning(self, "Registro", "Por favor, introduce usuario y contraseña")
                 self.acceso = False
-                return False
+                self.close()
             elif datos[1] != self.repetir_contrasena.text():
                 QMessageBox.warning(self, "Registro", "Las contraseñas no coinciden")
                 self.acceso = False
-                return False
-            # Guardamos los datos en el archivo CSV
-            guardar = Guardar('Ejercicio2/Datos/usuarios.csv')
-            guardar.guardar(datos)
-            # Mostramos un mensaje de confirmación
-            QMessageBox.information(self, "Registro", "Registro completado correctamente")
-            self.acceso = True
-            return True
+                self.close()
+            else:
+                # Guardamos los datos en el archivo CSV
+                guardar = Guardar('Ejercicio2/Datos/usuarios.csv')
+                guardar.guardar(datos)
+                # Mostramos un mensaje de confirmación
+                QMessageBox.information(self, "Registro", "Registro completado correctamente")
+                self.close()
         elif self.titulo == 'Iniciar sesión':
             self.verificar_credenciales(datos[0], datos[1])
         self.close()

@@ -19,7 +19,7 @@ class RealSubject(Subject):
 
     def request(self) -> None:
         app = QApplication(sys.argv)
-        interfaz = Interface_Documents()
+        interfaz = Interface_Documents(self)
         app.exec_()
 
     def getUser(self):
