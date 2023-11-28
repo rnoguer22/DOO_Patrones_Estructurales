@@ -22,5 +22,5 @@ class Lanzador:
         proxy.request()
 
 
-        #METODOS PARA MODIFICAR EL CONTENIDO DE LOS DOCUMENTOS POR USUARIOS AUTORIZADOS (falta vincular esto ultimo con los usuarios autorzados)
+        #AÑADIR COMPOSITE AL PROXY, AL CREAR LAS CARPETAS 
         #ESTRUCTURAR EL COMPOSITE DEL EJERCICIO 1

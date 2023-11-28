@@ -124,7 +124,6 @@ class Interface(QWidget):
                         QMessageBox.information(self, "Inicio de sesión", "Inicio de sesión exitoso")
                         #Los usuarios con id par son los que tienen acceso a los documentos, para modificarlos, eliminarlos, etc.
                         if int(linea[0]) % 2 != 0:
-                            print(int(linea[0]))
                             self.acceso = True
                         else:
                             QMessageBox.warning(self, "Inicio de sesión", "Este usuario no tiene acceso a los documentos")

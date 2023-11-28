@@ -194,6 +194,8 @@ class Interface_Documents(QWidget):
             layout_horizontal2.addWidget(label_content)
             layout_horizontal2.addWidget(content)
 
+            
+
 
             confirmar = QPushButton("Confirmar")
             cancelar = QPushButton("Cancelar")
@@ -258,7 +260,7 @@ class Interface_Documents(QWidget):
             layout_vertical.addLayout(layout_horizontal2)
             layout_vertical.addLayout(layout_horizontal3)  
             layout_vertical.addLayout(layout_horizontal4) 
-            
+
 
         self.setLayout(layout_vertical)
         self.show()
